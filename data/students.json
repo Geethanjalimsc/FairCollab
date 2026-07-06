@@ -1,0 +1,268 @@
+{
+  "project_id": "faircollab_software_project",
+  "project_name": "AI Web Application — Group Project 2026",
+  "project_type": "software",
+  "duration_weeks": 6,
+  "students": [
+    {
+      "student_id": "A",
+      "student_name": "Student A",
+      "tasks_assigned": 10,
+      "tasks_completed": 8,
+      "meetings_attended": 5,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Gita took on the hardest technical tasks and always delivered",
+        "She helped me debug my code when I was stuck",
+        "Very reliable, always attended meetings and communicated clearly"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "code",
+          "description": "Implemented user authentication module with JWT tokens and session management",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Attended weekly standup, presented authentication progress to team",
+          "role": "presenter"
+        },
+        {
+          "date": "2026-06-14",
+          "type": "task",
+          "description": "Completed: Write API endpoint documentation for all backend routes",
+          "status": "completed",
+          "complexity": "medium"
+        },
+        {
+          "date": "2026-06-17",
+          "type": "peer_support",
+          "description": "Helped Student B resolve merge conflict and explained JWT flow",
+          "recipient": "Student B"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Attended sprint planning meeting, proposed database schema design",
+          "role": "contributor"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "code",
+          "description": "Built database schema for user records and session storage",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-22",
+          "type": "code",
+          "description": "Refactored authentication module after peer code review feedback",
+          "complexity": "medium",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-24",
+          "type": "meeting",
+          "description": "Attended demo preparation meeting, led walkthrough of backend",
+          "role": "presenter"
+        },
+        {
+          "date": "2026-06-25",
+          "type": "task",
+          "description": "Completed: Write unit tests for authentication module",
+          "status": "completed",
+          "complexity": "medium"
+        },
+        {
+          "date": "2026-06-28",
+          "type": "code",
+          "description": "Fixed critical security vulnerability in session handling identified during testing",
+          "complexity": "high",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "student_id": "B",
+      "student_name": "Student B",
+      "tasks_assigned": 10,
+      "tasks_completed": 5,
+      "meetings_attended": 3,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student B was present in meetings but needed a lot of guidance",
+        "Did some frontend work but quality was basic",
+        "Not very responsive to messages outside of meetings"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-12",
+          "type": "code",
+          "description": "Built basic frontend login form with HTML and CSS",
+          "complexity": "medium",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-15",
+          "type": "meeting",
+          "description": "Attended weekly standup, listened but did not present",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-17",
+          "type": "task",
+          "description": "Completed: Style the navigation bar with CSS",
+          "status": "completed",
+          "complexity": "low"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Attended sprint planning meeting",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "code",
+          "description": "Built home page layout, required multiple revisions due to bugs",
+          "complexity": "low",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-24",
+          "type": "meeting",
+          "description": "Attended demo preparation meeting",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-27",
+          "type": "task",
+          "description": "Completed: Fix button alignment bug on home page",
+          "status": "completed",
+          "complexity": "low"
+        }
+      ]
+    },
+    {
+      "student_id": "C",
+      "student_name": "Student C",
+      "tasks_assigned": 10,
+      "tasks_completed": 2,
+      "meetings_attended": 1,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student C was mostly absent and did not help with anything",
+        "Not responsive to messages, missed almost all meetings",
+        "We had to redo the work Student C was assigned"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "code",
+          "description": "Fixed a typo in the README file",
+          "complexity": "trivial",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Attended week 1 standup only",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-28",
+          "type": "code",
+          "description": "Made a minor CSS colour fix on the final day",
+          "complexity": "trivial",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "student_id": "D",
+      "student_name": "Student D",
+      "tasks_assigned": 10,
+      "tasks_completed": 10,
+      "meetings_attended": 5,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student D kept the entire team organised and handled all documentation",
+        "Without Student D we would have had no structure at all",
+        "Managed all meeting agendas and resolved a conflict between team members"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "documentation",
+          "description": "Wrote the full project scope document covering objectives, timeline, and team responsibilities",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Organised and facilitated the week 1 standup, prepared the agenda",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-14",
+          "type": "documentation",
+          "description": "Created API documentation template for the team to follow when writing endpoint docs",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-15",
+          "type": "task",
+          "description": "Set up the shared task board and assigned all tasks to team members",
+          "status": "completed",
+          "complexity": "medium"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Organised sprint planning meeting, prepared agenda and took minutes",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-19",
+          "type": "documentation",
+          "description": "Wrote and distributed full meeting minutes to all team members",
+          "complexity": "medium",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "task",
+          "description": "Resolved conflict between Student B and Student C regarding task ownership",
+          "status": "completed",
+          "complexity": "high"
+        },
+        {
+          "date": "2026-06-22",
+          "type": "documentation",
+          "description": "Wrote testing guide for non-technical reviewer explaining how to test each feature",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-24",
+          "type": "meeting",
+          "description": "Organised and facilitated demo preparation meeting",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-27",
+          "type": "documentation",
+          "description": "Wrote the full 20-page project report covering design decisions, implementation, and testing",
+          "complexity": "high",
+          "status": "completed"
+        }
+      ]
+    }
+
+  ]
+}

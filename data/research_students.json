@@ -1,0 +1,240 @@
+{
+  "project_id": "faircollab_research_project",
+  "project_name": "AI in Healthcare — Group Research Report 2026",
+  "project_type": "research",
+  "duration_weeks": 6,
+  "students": [
+    {
+      "student_id": "E",
+      "student_name": "Student E",
+      "tasks_assigned": 8,
+      "tasks_completed": 8,
+      "meetings_attended": 5,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student E wrote the majority of the report and did the most thorough literature search",
+        "Always prepared for meetings and took initiative on research direction",
+        "Extremely reliable, completed everything on time"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "writing",
+          "description": "Wrote the full Introduction and Background sections of the research report, 3000 words",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Attended team kickoff meeting, proposed research direction and structure",
+          "role": "contributor"
+        },
+        {
+          "date": "2026-06-14",
+          "type": "literature",
+          "description": "Reviewed and annotated 15 research papers on AI in healthcare for the literature review",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Attended literature review sync meeting, presented paper summaries to team",
+          "role": "presenter"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "writing",
+          "description": "Wrote the full Methodology section explaining the research approach, 2500 words",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-22",
+          "type": "writing",
+          "description": "Wrote Results and Discussion section analysing findings from reviewed papers, 2000 words",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-24",
+          "type": "meeting",
+          "description": "Attended final submission planning meeting",
+          "role": "contributor"
+        },
+        {
+          "date": "2026-06-27",
+          "type": "task",
+          "description": "Verified all citations and references across the entire report for accuracy",
+          "status": "completed",
+          "complexity": "medium"
+        }
+      ]
+    },
+    {
+      "student_id": "F",
+      "student_name": "Student F",
+      "tasks_assigned": 8,
+      "tasks_completed": 4,
+      "meetings_attended": 4,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student F contributed but needed reminders to complete tasks",
+        "Wrote one section of the report but it needed significant editing",
+        "Present in most meetings but not very proactive"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-15",
+          "type": "writing",
+          "description": "Wrote the Related Work section of the report, 1500 words, required editing by teammates",
+          "complexity": "medium",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Attended literature review sync meeting",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "literature",
+          "description": "Reviewed 6 research papers and added references to shared bibliography",
+          "complexity": "medium",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-22",
+          "type": "meeting",
+          "description": "Attended final planning meeting",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-27",
+          "type": "task",
+          "description": "Proofread the final report for spelling and grammar errors",
+          "status": "completed",
+          "complexity": "low"
+        }
+      ]
+    },
+    {
+      "student_id": "G",
+      "student_name": "Student G",
+      "tasks_assigned": 8,
+      "tasks_completed": 1,
+      "meetings_attended": 2,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student G was absent for most of the project and did not contribute meaningfully",
+        "We had to rewrite the introduction Student G was supposed to write",
+        "Not responsive to messages throughout the project"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "writing",
+          "description": "Submitted an incomplete 200-word introduction draft that required complete rewriting",
+          "complexity": "low",
+          "status": "incomplete"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Attended week 1 kickoff meeting only",
+          "role": "attendee"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Attended one literature review meeting, did not contribute",
+          "role": "attendee"
+        }
+      ]
+    },
+    {
+      "student_id": "H",
+      "student_name": "Student H",
+      "tasks_assigned": 8,
+      "tasks_completed": 8,
+      "meetings_attended": 5,
+      "meetings_total": 5,
+      "peer_feedback": [
+        "Student H managed all presentations and kept the team on schedule throughout",
+        "Without Student H we would have had no structure or coordination at all",
+        "Handled all non-writing tasks and delivered every presentation brilliantly"
+      ],
+      "contributions": [
+        {
+          "date": "2026-06-10",
+          "type": "presentation",
+          "description": "Designed the full presentation structure and created the slide deck for the week 2 progress presentation",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-11",
+          "type": "meeting",
+          "description": "Organised and facilitated the team kickoff meeting, prepared agenda",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-14",
+          "type": "task",
+          "description": "Created the research task allocation matrix assigning all sections and deadlines to team members",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-18",
+          "type": "meeting",
+          "description": "Facilitated the literature review sync meeting, kept discussion on track",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-20",
+          "type": "presentation",
+          "description": "Delivered the midpoint progress presentation to the supervisor, received positive feedback",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-22",
+          "type": "task",
+          "description": "Coordinated all supervisor feedback responses and communicated changes to team members",
+          "status": "completed",
+          "complexity": "medium"
+        },
+        {
+          "date": "2026-06-24",
+          "type": "meeting",
+          "description": "Organised and facilitated the final submission planning meeting",
+          "role": "facilitator"
+        },
+        {
+          "date": "2026-06-26",
+          "type": "presentation",
+          "description": "Created the 20-slide final presentation deck covering all research findings",
+          "complexity": "high",
+          "status": "completed"
+        },
+        {
+          "date": "2026-06-27",
+          "type": "task",
+          "description": "Proofread and formatted the entire final report to submission standards",
+          "status": "completed",
+          "complexity": "medium"
+        },
+        {
+          "date": "2026-06-28",
+          "type": "presentation",
+          "description": "Delivered the final team presentation to the assessment panel",
+          "complexity": "high",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

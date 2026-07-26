@@ -13,3 +13,6 @@ venv/
 
 # Windows junk files
 Thumbs.db
+
+#google services .json file
+google_service_account.json

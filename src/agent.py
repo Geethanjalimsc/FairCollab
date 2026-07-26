@@ -22,7 +22,7 @@ from langgraph.graph import StateGraph, END
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from src.rag_pipeline import retrieve_evidence, STUDENTS_PATH, RESEARCH_STUDENTS_PATH
+from src.rag_pipeline import retrieve_evidence, STUDENTS_PATH, RESEARCH_STUDENTS_PATH, ROBOTICS_PATH
 
 from src.prompts import FACTOR_PROMPT, OVERALL_PROMPT, VALIDATION_PROMPT
 
@@ -37,6 +37,9 @@ class AgentState(TypedDict, total=False):
     """Shape of the state dict threaded through every node in the graph."""
 
     student_name: str
+
+    # Optional: scopes lookup/retrieval when a student_name exists in multiple projects.
+    project_id: str
 
     project_data: dict
 
@@ -85,14 +88,19 @@ def _load_project(path: str) -> dict:
         return json.load(f)
 
 
-def _find_student(student_name: str) -> tuple:
-    """Search both project files for a student and return (project, student_record)."""
-    for path in (STUDENTS_PATH, RESEARCH_STUDENTS_PATH):
+def _find_student(student_name: str, project_id: str = None) -> tuple:
+    """Search project files for a student and return (project, student_record).
+
+    project_id: optional -- restricts the search to the matching project.
+    """
+    for path in (STUDENTS_PATH, RESEARCH_STUDENTS_PATH, ROBOTICS_PATH):
         project = _load_project(path)
+        if project_id is not None and project.get("project_id") != project_id:
+            continue
         for student in project["students"]:
             if student["student_name"] == student_name:
                 return project, student
-    raise ValueError(f"No student named '{student_name}' found in either data file.")
+    raise ValueError(f"No student named '{student_name}' found in the expected project data file(s).")
 
 
 def _format_stats(student_record: dict) -> str:
@@ -120,8 +128,9 @@ def _format_evidence(documents: list) -> str:
 def node_retrieve_evidence(state: AgentState) -> AgentState:
     """Node 1: gather everything downstream nodes need -- evidence, stats, project context."""
     student_name = state["student_name"]
-    project, student_record = _find_student(student_name)
-    documents = retrieve_evidence(student_name)
+    project_id = state.get("project_id")
+    project, student_record = _find_student(student_name, project_id=project_id)
+    documents = retrieve_evidence(student_name, project_id=project_id)
     state["project_data"] = project
     state["student_record"] = student_record
     state["evidence_docs"] = documents
@@ -320,20 +329,16 @@ def build_graph():
     return graph.compile()
 
 
-def run_assessment(student_name: str) -> AgentState:
+def run_assessment(student_name: str, project_id: str = None) -> AgentState:
     """Run the full five-node assessment for one student and return the final state.
 
-    Returns the whole AgentState dict (not just the formatted report string),
-    so callers like the Streamlit UI can pull individual fields -- e.g.
-    overall_rating for color-coding, evidence_docs for a per-record list,
-    integrity_notes/factor_analysis/overall_assessment for separate
-    expandable sections, and max_revisions_reached for a caveat banner --
-    without having to re-parse final_output's flattened text. final_output
-    is still present in the returned dict for anything that just wants the
-    single combined report (e.g. this file's own __main__ block below).
+    Returns the whole AgentState dict, not just final_output's flattened
+    text, so callers can pull individual fields (overall_rating, evidence_docs,
+    etc.) directly. project_id disambiguates a student_name that exists in
+    more than one project.
     """
     app = build_graph()
-    return app.invoke({"student_name": student_name})
+    return app.invoke({"student_name": student_name, "project_id": project_id})
 
 
 if __name__ == "__main__":

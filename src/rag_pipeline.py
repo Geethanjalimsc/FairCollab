@@ -22,6 +22,8 @@ STUDENTS_PATH = os.path.join(BASE_DIR, "data", "students.json")
 
 RESEARCH_STUDENTS_PATH = os.path.join(BASE_DIR, "data", "research_students.json")
 
+ROBOTICS_PATH = os.path.join(BASE_DIR, "data", "robotics_project.json")
+
 INDEX_DIR = os.path.join(BASE_DIR, "data", "faircollab_index")
 
 EMBEDDING_MODEL = "models/gemini-embedding-001"
@@ -84,7 +86,11 @@ def _feedback_to_document(project: dict, student: dict, feedback_text: str, inde
 
 def build_documents() -> list:
     """Load both data files and flatten every record into a list of Documents."""
-    projects = [_load_json(STUDENTS_PATH), _load_json(RESEARCH_STUDENTS_PATH)]
+    projects = [
+        _load_json(STUDENTS_PATH),
+        _load_json(RESEARCH_STUDENTS_PATH),
+        _load_json(ROBOTICS_PATH),
+    ]
 
     documents = []
     for project in projects:
@@ -126,12 +132,18 @@ def _load_index() -> FAISS:
     return FAISS.load_local(INDEX_DIR, embeddings, allow_dangerous_deserialization=True)
 
 
-def retrieve_evidence(student_name: str, k: int = 8) -> list:
+def retrieve_evidence(student_name: str, k: int = 8, project_id: str = None) -> list:
     """Return the top-k most relevant contribution/feedback records for one student."""
     vector_store = _load_index()
 
+    # Student names repeat across projects, so scope by project_id too when given.
+    if project_id is not None:
+        search_filter = {"student_name": student_name, "project_id": project_id}
+    else:
+        search_filter = {"student_name": student_name}
+
     results = vector_store.similarity_search(
-        student_name, k=k, filter={"student_name": student_name}, fetch_k=200
+        student_name, k=k, filter=search_filter, fetch_k=200
     )
 
     if not results:

@@ -14,5 +14,8 @@ venv/
 # Windows junk files
 Thumbs.db
 
-#google services .json file
+# Google service account credentials — NEVER upload
 google_service_account.json
+
+# Live connector config — may contain sensitive URLs
+data/live_config.json

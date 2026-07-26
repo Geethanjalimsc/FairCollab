@@ -1,0 +1,1553 @@
+{
+  "project_id": "faircollab_robotics_project",
+  "project_name": "Intelligent Robotics Project",
+  "project_type": "robotics",
+  "duration_weeks": 6,
+  "students": [
+    {
+      "student_id": "A",
+      "student_name": "Student A",
+      "tasks_assigned": 4,
+      "tasks_completed": 3,
+      "meetings_attended": 0,
+      "meetings_total": 0,
+      "peer_feedback": [
+        "Rating 5/5: Waleed built the entire Kalman tracker and simulation setup, was the main integrator who kept everything working together",
+        "Rating 5/5: Waleed's Kalman tracker and adaptive safety work was the backbone of the system, excellent integration across all components",
+        "Rating 4/5: Waleed led the simulation setup and integration work, the Kalman tracker implementation was technically strong"
+      ],
+      "task_descriptions": [
+        "Webots simulation setup and scenario design",
+        "Kalman tracker implementation for multi-object tracking",
+        "Adaptive safety layer development",
+        "System integration testing and debugging"
+      ],
+      "contributions": [
+        {
+          "date": "2026-04-22",
+          "type": "code",
+          "description": "Update video-demo",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "b617a6c592740eaf99c87d60a14570d4d63986fb",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": [
+              "video-demo"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2026-04-22",
+          "type": "code",
+          "description": "Create video-demo",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "2c1ceab1d4578597a5112325d61d8a2a882ed055",
+            "additions": 1,
+            "deletions": 0,
+            "files_changed": [
+              "video-demo"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-12",
+          "type": "code",
+          "description": "Update README with SLAM tool information",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "5b4cb5252bd711b935a9681e8255e74f854f9e71",
+            "additions": 1,
+            "deletions": 0,
+            "files_changed": [
+              "README.md"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-12",
+          "type": "code",
+          "description": "Add note about using slam_toolbox for SLAM",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "c5c5befd6f2aa10e445f1f9db27bb5b01c74694d",
+            "additions": 1,
+            "deletions": 0,
+            "files_changed": [
+              "README.md"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Delete human_nav_ws",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "c2bc9cc2519334469a654071601c036515750266",
+            "additions": 0,
+            "deletions": 1,
+            "files_changed": [
+              "human_nav_ws"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Fix typo in README.md SLAM notice",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "cbdc351b39cf7687888f95c40db912ebf225f672",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/README.md"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Add notice about SLAM Toolbox usage in README",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "8b8730c2ca5ca567a7b7c50a51885abbcf63d382",
+            "additions": 2,
+            "deletions": 0,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/README.md"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Add SLAM notice to README.md",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "155fe0877a9d68b2ac4c273b5980a20fbb45cfd2",
+            "additions": 3,
+            "deletions": 0,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/README.md"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Delete test/text.txt",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "484588ddb5e698a7330db30fdeae46867b85ee43",
+            "additions": 0,
+            "deletions": 1,
+            "files_changed": [
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Remove old setup instructions from text.txt",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "8e60097181bd157c5475fa51676d90b963feca6e",
+            "additions": 0,
+            "deletions": 18,
+            "files_changed": [
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Merge pull request #9 from Weed-eng/cleanup-unused-files",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "ba55ed14c82c692e0074831c7acfe0e60644fb74",
+            "additions": 0,
+            "deletions": 1617,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt",
+              "turtlebot/controllers/dwa_planner/README.txt",
+              "turtlebot/controllers/kalman_predictor/README.txt",
+              "turtlebot/controllers/lidar_detector/README.txt",
+              "turtlebot/controllers/lidar_detector/lidar_detector.py",
+              "turtlebot/controllers/main_controller/main_controller.py",
+              "turtlebot/controllers/motion_planner/__init__.py",
+              "turtlebot/controllers/motion_planner/config.py",
+              "turtlebot/controllers/motion_planner/odometry.py",
+              "turtlebot/controllers/motion_planner/planner.py",
+              "turtlebot/controllers/slam_localization/README.txt",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/Makefile",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.d",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.o",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.c",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/controllers/utils/README.txt",
+              "turtlebot/docs/FinalProjectReport_suggestions-2.pdf",
+              "turtlebot/docs/Proposal.pdf",
+              "turtlebot/protos/Pedestrian.proto",
+              "turtlebot/protos/README.txt",
+              "turtlebot/protos/icons/Pedestrian.png",
+              "turtlebot/worlds/README.txt",
+              "turtlebot/worlds/turtlebot3_burger.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Delete turtlebot directory (unused)",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "1c62258a440fc5decf26e49e675071605e09f972",
+            "additions": 0,
+            "deletions": 1617,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt",
+              "turtlebot/controllers/dwa_planner/README.txt",
+              "turtlebot/controllers/kalman_predictor/README.txt",
+              "turtlebot/controllers/lidar_detector/README.txt",
+              "turtlebot/controllers/lidar_detector/lidar_detector.py",
+              "turtlebot/controllers/main_controller/main_controller.py",
+              "turtlebot/controllers/motion_planner/__init__.py",
+              "turtlebot/controllers/motion_planner/config.py",
+              "turtlebot/controllers/motion_planner/odometry.py",
+              "turtlebot/controllers/motion_planner/planner.py",
+              "turtlebot/controllers/slam_localization/README.txt",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/Makefile",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.d",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.o",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.c",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/controllers/utils/README.txt",
+              "turtlebot/docs/FinalProjectReport_suggestions-2.pdf",
+              "turtlebot/docs/Proposal.pdf",
+              "turtlebot/protos/Pedestrian.proto",
+              "turtlebot/protos/README.txt",
+              "turtlebot/protos/icons/Pedestrian.png",
+              "turtlebot/worlds/README.txt",
+              "turtlebot/worlds/turtlebot3_burger.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-06",
+          "type": "code",
+          "description": "Add entry point for kalman_tracker and adaptive_safety",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "ca18bf25f06bc54bdbb7db22d5b2fc7dd52faada",
+            "additions": 2,
+            "deletions": 0,
+            "files_changed": [
+              "test/human_nav_ws/src/human_aware_nav/setup.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-06",
+          "type": "code",
+          "description": "Add files via upload",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "b50ddda65361f6831d4bfb65c7cc1f065488c763",
+            "additions": 405,
+            "deletions": 35,
+            "files_changed": [
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README.txt",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "74aef567669127064862af819b434bd99973bf74",
+            "additions": 138,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/main_controller/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Format README.txt with proper Markdown syntax",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "4341a2c072d2a0296ed536cf61bfe909e3e50f67",
+            "additions": 4,
+            "deletions": 3,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Format README.txt with Markdown headers",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "dff452e3fefe849fd323d702111bbc1c3076a2cd",
+            "additions": 3,
+            "deletions": 2,
+            "files_changed": [
+              "turtlebot/controllers/kalman_predictor/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README.txt",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "5edd24b705802ae251d8a30b6e15416ea2fb4708",
+            "additions": 3,
+            "deletions": 2,
+            "files_changed": [
+              "turtlebot/controllers/dwa_planner/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Format README.txt with Markdown headers",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "369e75ad4eecdd87793a5446c44dfed90912d36f",
+            "additions": 3,
+            "deletions": 2,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README with proper formatting and content",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "90887459dbcb42c7d8311d3af3c2d37fb27e1b3f",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": [
+              "turtlebot/controllers/slam_localization/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README with output details for lidar_detector",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "b9bfe7846a7467fdae83e00b0740419d5508264e",
+            "additions": 13,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Revise README for lidar_detector module",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "b10b045b281485d72fe232187cbd8e59e2c039a2",
+            "additions": 11,
+            "deletions": 17,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Format README.txt for Kalman Prediction Module",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "26d074dea68c7ff116096426d49d2cbe8a4fcafd",
+            "additions": 8,
+            "deletions": 13,
+            "files_changed": [
+              "turtlebot/controllers/kalman_predictor/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README for DWA Local Planner formatting",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "4d7be9de4f51e664ecd7fcf492e59999304dcea2",
+            "additions": 6,
+            "deletions": 12,
+            "files_changed": [
+              "turtlebot/controllers/dwa_planner/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Refactor README.txt for adaptive safety module",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "93d6fe1ecd713e1276d1fe3f7f269b487c4d89c0",
+            "additions": 8,
+            "deletions": 13,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README.txt",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "2c30f96119bcfd03b542bbc5258751d588abb32a",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": [
+              "turtlebot/controllers/utils/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add README for utility functions in controllers",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "86bb092abc6b46654b737bb681aac81c500edcd0",
+            "additions": 2,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/utils/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add README for SLAM & Localization module",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "2287c05f2f97c423bca99e6bad3c9b0b6e52daa7",
+            "additions": 28,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/slam_localization/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add files via upload",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "5aff2f620094cb6e09f0bf68daa1350a4120eeeb",
+            "additions": 0,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/slam_localization/README.txt",
+              "turtlebot/controllers/utils/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add README for adaptive safety logic module",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "fbb8c33703a40cbb7b02729e5547d28d49e33f85",
+            "additions": 17,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add README for DWA Local Planner",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "6b511fedeb832c9f29f17d02ef7d466e87cf94f9",
+            "additions": 17,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/dwa_planner/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Update README.txt",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "2b73e4ff1c90d02088c0b37a3be98b3f9de751b7",
+            "additions": 22,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/kalman_predictor/README.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Add files via upload",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "1ad8346a5940e6fd5c932a2d1483b22a41cb4101",
+            "additions": 848,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/adaptive_safety/README.txt",
+              "turtlebot/controllers/dwa_planner/README.txt",
+              "turtlebot/controllers/kalman_predictor/README.txt",
+              "turtlebot/controllers/lidar_detector/README.txt",
+              "turtlebot/controllers/main_controller/README.txt",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/Makefile",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.d",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/build/release/turtlebot3_ostacle_avoidance.o",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.c",
+              "turtlebot/controllers/turtlebot3_ostacle_avoidance/turtlebot3_ostacle_avoidance.exe",
+              "turtlebot/docs/FinalProjectReport_suggestions-2.pdf",
+              "turtlebot/docs/Proposal.pdf",
+              "turtlebot/protos/Pedestrian.proto",
+              "turtlebot/protos/README.txt",
+              "turtlebot/protos/icons/Pedestrian.png",
+              "turtlebot/worlds/README.txt",
+              "turtlebot/worlds/turtlebot3_burger.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-13",
+          "type": "code",
+          "description": "Initial commit",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "51edfe397375573d02d5a581950deecdd50f5fe3",
+            "additions": 2,
+            "deletions": 0,
+            "files_changed": [
+              "README.md"
+            ],
+            "platform": "github"
+          }
+        }
+      ]
+    },
+    {
+      "student_id": "B",
+      "student_name": "Student B",
+      "tasks_assigned": 4,
+      "tasks_completed": 1,
+      "meetings_attended": 0,
+      "meetings_total": 0,
+      "peer_feedback": [
+        "Rating 4/5",
+        "Rating 4/5",
+        "Rating 4/5"
+      ],
+      "task_descriptions": [
+        "LiDAR-based human detection and tracking",
+        "Point cloud clustering for pedestrian detection",
+        "Centroid extraction for detected pedestrians",
+        "MarkerArray publisher for RViz visualization"
+      ],
+      "contributions": [
+        {
+          "date": "2025-11-21",
+          "type": "code",
+          "description": "Update lidar_detector.py",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "77fda7bd02ee0a7ee6fcea7e48aa2011f8483848",
+            "additions": 1,
+            "deletions": 1,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/lidar_detector.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-21",
+          "type": "code",
+          "description": "Update lidar_detector.py",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "afa18e3136666a13d96d5499aad847b5d5fce015",
+            "additions": 47,
+            "deletions": 113,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/lidar_detector.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-21",
+          "type": "code",
+          "description": "Add lidar_detector.py",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "8569de8590b64512bb0e5fc72af5f433f176e486",
+            "additions": 321,
+            "deletions": 0,
+            "files_changed": [
+              "turtlebot/controllers/lidar_detector/lidar_detector.py"
+            ],
+            "platform": "github"
+          }
+        }
+      ]
+    },
+    {
+      "student_id": "C",
+      "student_name": "Student C",
+      "tasks_assigned": 4,
+      "tasks_completed": 3,
+      "meetings_attended": 0,
+      "meetings_total": 0,
+      "peer_feedback": [
+        "Rating 5/5",
+        "Rating 4/5",
+        "Rating 5/5"
+      ],
+      "task_descriptions": [
+        "Motion planning and DWA tuning",
+        "Nav2 stack configuration and launch file",
+        "Scan filter implementation for AMCL",
+        "Dockerfile and demo launcher script"
+      ],
+      "contributions": [
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "Merge pull request #8 from Weed-eng/pavel-lidar-test",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "e2c805d9dc6b01ad274c9d931d110b1bc8a9d07a",
+            "additions": 2266,
+            "deletions": 31,
+            "files_changed": [
+              "README.md",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env_static.wbt",
+              "test1log.txt",
+              "test2log.txt",
+              "test3log.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-11",
+          "type": "code",
+          "description": "slam setup fixed",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "52df9a3d12129319f3dbc6321e16544153ab0b8d",
+            "additions": 2266,
+            "deletions": 31,
+            "files_changed": [
+              "README.md",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env_static.wbt",
+              "test1log.txt",
+              "test2log.txt",
+              "test3log.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-10",
+          "type": "code",
+          "description": "Merge pull request #7 from Weed-eng/pavel-lidar-test",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "021ec5a859cd203667bac4b0813a9ad4597235ca",
+            "additions": 2271,
+            "deletions": 2933,
+            "files_changed": [
+              "README.md",
+              "controllers/pedestrian_simple/pedestrian_simple.py",
+              "launch_demo.sh",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/entry_points.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/config/slam_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/scan_filter.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/nav2_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/setup.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-10",
+          "type": "code",
+          "description": "final dwa tuning and setup/launch instructions added to README.md",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "bb4190b799281fc009fb6c613294fba8076f636b",
+            "additions": 517,
+            "deletions": 148,
+            "files_changed": [
+              "README.md",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/scan_filter.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-10",
+          "type": "code",
+          "description": "safe passage, but erratic motion near the target",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "d92b166263b0af58704fade61df75eb153cc5c7f",
+            "additions": 168,
+            "deletions": 50,
+            "files_changed": [
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-10",
+          "type": "code",
+          "description": "more bug fixes",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "ad2e94da78c9cbefdf307a70ca15c54b7597248d",
+            "additions": 109,
+            "deletions": 38,
+            "files_changed": [
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-10",
+          "type": "code",
+          "description": "adaptive safety rework",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "7fbcde528604c0c2726a74084463e15d063aa414",
+            "additions": 320,
+            "deletions": 207,
+            "files_changed": [
+              "controllers/pedestrian_simple/pedestrian_simple.py",
+              "launch_demo.sh",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-09",
+          "type": "code",
+          "description": "final dwa tuning implementing cpa functionality",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "ec406599623692d11e419be0603649010e14c674",
+            "additions": 165,
+            "deletions": 2768,
+            "files_changed": [
+              "launch_demo.sh",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/entry_points.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/scan_filter.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.yaml"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-09",
+          "type": "code",
+          "description": "add scan_filter, simplify adaptive_safety, tune pedestrian speeds",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "3653d9078fa87a947ec2d95a8068f85a963fed7a",
+            "additions": 565,
+            "deletions": 362,
+            "files_changed": [
+              "launch_demo.sh",
+              "test/human_nav_ws/src/human_aware_nav/config/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/scan_filter.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/nav2_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/setup.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-07",
+          "type": "code",
+          "description": "start configuring nav2",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "8237e41fbea166627f421d2c5fd8d8faf31db866",
+            "additions": 1010,
+            "deletions": 385,
+            "files_changed": [
+              "controllers/pedestrian_simple/pedestrian_simple.py",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/entry_points.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/nav2_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-07",
+          "type": "code",
+          "description": "fix frame_id base_scan to lidar_link, add maps to setup.py",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "45314455df74bbc32af247c21fbb9055711b6b25",
+            "additions": 4,
+            "deletions": 3,
+            "files_changed": [
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py",
+              "test/human_nav_ws/src/human_aware_nav/setup.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-07",
+          "type": "code",
+          "description": "Merge pavel-slam-fixes from origin",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "439b0ff28e5847ce1289edad7a43e9b84e66882c",
+            "additions": 124,
+            "deletions": 55,
+            "files_changed": [
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/slam_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.yaml"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-07",
+          "type": "code",
+          "description": "Merge object detection, kalman tracker, and adaptive safety",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "158fc786f569a05a9c9a2e3881eb85ef410e8760",
+            "additions": 405,
+            "deletions": 35,
+            "files_changed": [
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/adaptive_safety.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/kalman_tracker.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-04",
+          "type": "code",
+          "description": "added docker related files",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "e97ad9edc0f68cc16a197cc584f0b75d053856a0",
+            "additions": 182,
+            "deletions": 4,
+            "files_changed": [
+              ".dockerignore",
+              ".gitignore",
+              "Dockerfile",
+              "local_simulation_server.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-03",
+          "type": "code",
+          "description": "resolved issue with lidar scan direction (clockwise to anticlockwise). made slam mapping more accurate by fixing timestamp mismatch, and implementing encoder-based odometry",
+          "complexity": "medium",
+          "status": "completed",
+          "metadata": {
+            "sha": "f5767f2c1b1b3916dc2b39b4cd3ace77ef2943a9",
+            "additions": 124,
+            "deletions": 55,
+            "files_changed": [
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/slam_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/test_map.yaml"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-03",
+          "type": "code",
+          "description": "Merge pull request #2 from Weed-eng/pavel-slam-fixes",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "fb276c0f9d1b7341fd5eb3d38754b74f3c6df455",
+            "additions": 5319,
+            "deletions": 0,
+            "files_changed": [
+              ".gitignore",
+              "human_nav_ws",
+              "test/human_nav_ws/build/COLCON_IGNORE",
+              "test/human_nav_ws/build/human_aware_nav/colcon_build.rc",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/PKG-INFO",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/dependency_links.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/entry_points.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/requires.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/top_level.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/zip-safe",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/sitecustomize.py",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.dsv",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.ps1",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.sh",
+              "test/human_nav_ws/frames_2025-12-02_15.53.48.gv",
+              "test/human_nav_ws/frames_2025-12-02_15.53.48.pdf",
+              "test/human_nav_ws/frames_2025-12-02_15.57.45.gv",
+              "test/human_nav_ws/frames_2025-12-02_15.57.45.pdf",
+              "test/human_nav_ws/install/.colcon_install_layout",
+              "test/human_nav_ws/install/COLCON_IGNORE",
+              "test/human_nav_ws/install/_local_setup_util_ps1.py",
+              "test/human_nav_ws/install/_local_setup_util_sh.py",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/driver",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/human_detector",
+              "test/human_nav_ws/install/human_aware_nav/lib/python3.10/site-packages/human-aware-nav.egg-link",
+              "test/human_nav_ws/install/human_aware_nav/share/ament_index/resource_index/packages/human_aware_nav",
+              "test/human_nav_ws/install/human_aware_nav/share/colcon-core/packages/human_aware_nav",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.bash",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.xml",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.zsh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/resource/my_robot.urdf",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/worlds/human_env.wbt",
+              "test/human_nav_ws/install/local_setup.bash",
+              "test/human_nav_ws/install/local_setup.ps1",
+              "test/human_nav_ws/install/local_setup.sh",
+              "test/human_nav_ws/install/local_setup.zsh",
+              "test/human_nav_ws/install/setup.bash",
+              "test/human_nav_ws/install/setup.ps1",
+              "test/human_nav_ws/install/setup.sh",
+              "test/human_nav_ws/install/setup.zsh",
+              "test/human_nav_ws/log/COLCON_IGNORE",
+              "test/human_nav_ws/log/latest",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/slam_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__init__.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/package.xml",
+              "test/human_nav_ws/src/human_aware_nav/resource/human_aware_nav",
+              "test/human_nav_ws/src/human_aware_nav/resource/my_robot.urdf",
+              "test/human_nav_ws/src/human_aware_nav/setup.cfg",
+              "test/human_nav_ws/src/human_aware_nav/setup.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_copyright.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_flake8.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_pep257.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env.wbt",
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Update SLAM launch instructions to use config file",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "bbdd628aeba6734cac19b154218e15122b56a8b6",
+            "additions": 3,
+            "deletions": 2,
+            "files_changed": [
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Update .gitignore to exclude ROS2 colcon build artifacts",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "32211f2c326366581c8bb0f2ae9f5da9887ba2ca",
+            "additions": 9,
+            "deletions": 0,
+            "files_changed": [
+              ".gitignore"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "fixed slam_toolbox file and slam configs",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "0874d0bd7679c0d41a6f2c5abcc3d4c51fee4ba8",
+            "additions": 2657,
+            "deletions": 557,
+            "files_changed": [
+              ".gitignore",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/sitecustomize.py",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.dsv",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.ps1",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.sh",
+              "test/human_nav_ws/frames_2025-12-02_15.53.48.gv",
+              "test/human_nav_ws/frames_2025-12-02_15.53.48.pdf",
+              "test/human_nav_ws/frames_2025-12-02_15.57.45.gv",
+              "test/human_nav_ws/frames_2025-12-02_15.57.45.pdf",
+              "test/human_nav_ws/install/.colcon_install_layout",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/driver",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/human_detector",
+              "test/human_nav_ws/install/human_aware_nav/lib/python3.10/site-packages/human-aware-nav.egg-link",
+              "test/human_nav_ws/install/human_aware_nav/share/ament_index/resource_index/packages/human_aware_nav",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.xml",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/resource/my_robot.urdf",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/worlds/human_env.wbt",
+              "test/human_nav_ws/install/local_setup.sh",
+              "test/human_nav_ws/install/setup.sh",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/events.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/command.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stdout.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stdout_stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/streams.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/logger_all.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/events.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/command.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stdout.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stdout_stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/streams.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/logger_all.log",
+              "test/human_nav_ws/log/latest",
+              "test/human_nav_ws/log/latest_build",
+              "test/human_nav_ws/src/human_aware_nav/config/slam_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/arena_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/setup.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-17",
+          "type": "code",
+          "description": "Merge pull request #1 from Weed-eng/pavel-motion_planning",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "7ddf0ef9ff2f693a229e75ee56204b78e8b63f95",
+            "additions": 504,
+            "deletions": 143,
+            "files_changed": [
+              ".gitignore",
+              "turtlebot/controllers/main_controller/README.txt",
+              "turtlebot/controllers/main_controller/main_controller.py",
+              "turtlebot/controllers/motion_planner/__init__.py",
+              "turtlebot/controllers/motion_planner/config.py",
+              "turtlebot/controllers/motion_planner/odometry.py",
+              "turtlebot/controllers/motion_planner/planner.py",
+              "turtlebot/worlds/turtlebot3_burger.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-16",
+          "type": "code",
+          "description": "add motion planning with odometry and p-controller goal seeking",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "b794a824e68a784174cc7d03913bffc53961bdc3",
+            "additions": 504,
+            "deletions": 143,
+            "files_changed": [
+              ".gitignore",
+              "turtlebot/controllers/main_controller/README.txt",
+              "turtlebot/controllers/main_controller/main_controller.py",
+              "turtlebot/controllers/motion_planner/__init__.py",
+              "turtlebot/controllers/motion_planner/config.py",
+              "turtlebot/controllers/motion_planner/odometry.py",
+              "turtlebot/controllers/motion_planner/planner.py",
+              "turtlebot/worlds/turtlebot3_burger.wbt"
+            ],
+            "platform": "github"
+          }
+        }
+      ]
+    },
+    {
+      "student_id": "D",
+      "student_name": "Student D",
+      "tasks_assigned": 4,
+      "tasks_completed": 2,
+      "meetings_attended": 0,
+      "meetings_total": 0,
+      "peer_feedback": [
+        "Rating 4/5: Shiwang handled SLAM setup and wrote the technical report clearly documenting the evaluation framework",
+        "Rating 3/5: Shiwang contributed to SLAM and report writing but was less active during the final integration phase",
+        "Rating 3/5: Shiwang set up SLAM early on but was less involved in later development stages"
+      ],
+      "task_descriptions": [
+        "SLAM setup and occupancy grid generation",
+        "Evaluation framework design and metrics definition",
+        "Technical report writing and documentation",
+        "Robot launch configuration"
+      ],
+      "contributions": [
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Add setup instructions for ROS2 and SLAM",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "d76a9835a90a715c2ece040db1052bfa7ca1af76",
+            "additions": 17,
+            "deletions": 0,
+            "files_changed": [
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Test version",
+          "complexity": "high",
+          "status": "completed",
+          "metadata": {
+            "sha": "d2e87a149763fa65b809c92d61ec6e5b75c2d2a6",
+            "additions": 3190,
+            "deletions": 0,
+            "files_changed": [
+              "test/human_nav_ws/build/COLCON_IGNORE",
+              "test/human_nav_ws/build/human_aware_nav/colcon_build.rc",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh",
+              "test/human_nav_ws/build/human_aware_nav/colcon_command_prefix_setup_py.sh.env",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/PKG-INFO",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/SOURCES.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/dependency_links.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/entry_points.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/requires.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/top_level.txt",
+              "test/human_nav_ws/build/human_aware_nav/human_aware_nav.egg-info/zip-safe",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/__pycache__/sitecustomize.cpython-310.pyc",
+              "test/human_nav_ws/build/human_aware_nav/prefix_override/sitecustomize.py",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.dsv",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.ps1",
+              "test/human_nav_ws/build/human_aware_nav/share/human_aware_nav/hook/pythonpath_develop.sh",
+              "test/human_nav_ws/install/COLCON_IGNORE",
+              "test/human_nav_ws/install/_local_setup_util_ps1.py",
+              "test/human_nav_ws/install/_local_setup_util_sh.py",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/driver",
+              "test/human_nav_ws/install/human_aware_nav/lib/human_aware_nav/human_detector",
+              "test/human_nav_ws/install/human_aware_nav/lib/python3.10/site-packages/human-aware-nav.egg-link",
+              "test/human_nav_ws/install/human_aware_nav/share/colcon-core/packages/human_aware_nav",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/ament_prefix_path.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/hook/pythonpath.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/launch/__pycache__/robot_launch.cpython-310.pyc",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.bash",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.dsv",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.ps1",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.sh",
+              "test/human_nav_ws/install/human_aware_nav/share/human_aware_nav/package.zsh",
+              "test/human_nav_ws/install/local_setup.bash",
+              "test/human_nav_ws/install/local_setup.ps1",
+              "test/human_nav_ws/install/local_setup.sh",
+              "test/human_nav_ws/install/local_setup.zsh",
+              "test/human_nav_ws/install/setup.bash",
+              "test/human_nav_ws/install/setup.ps1",
+              "test/human_nav_ws/install/setup.sh",
+              "test/human_nav_ws/install/setup.zsh",
+              "test/human_nav_ws/log/COLCON_IGNORE",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/events.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/command.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stdout.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/stdout_stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/human_aware_nav/streams.log",
+              "test/human_nav_ws/log/build_2025-12-02_01-42-51/logger_all.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/events.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/command.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stdout.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/stdout_stderr.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/human_aware_nav/streams.log",
+              "test/human_nav_ws/log/build_2025-12-02_14-40-06/logger_all.log",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__init__.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/__init__.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/driver.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/__pycache__/human_detector.cpython-310.pyc",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/driver.py",
+              "test/human_nav_ws/src/human_aware_nav/human_aware_nav/human_detector.py",
+              "test/human_nav_ws/src/human_aware_nav/launch/robot_launch.py",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.pgm",
+              "test/human_nav_ws/src/human_aware_nav/maps/my_map.yaml",
+              "test/human_nav_ws/src/human_aware_nav/nav2_params.yaml",
+              "test/human_nav_ws/src/human_aware_nav/package.xml",
+              "test/human_nav_ws/src/human_aware_nav/resource/human_aware_nav",
+              "test/human_nav_ws/src/human_aware_nav/resource/my_robot.urdf",
+              "test/human_nav_ws/src/human_aware_nav/setup.cfg",
+              "test/human_nav_ws/src/human_aware_nav/setup.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_copyright.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_flake8.py",
+              "test/human_nav_ws/src/human_aware_nav/test/test_pep257.py",
+              "test/human_nav_ws/src/human_aware_nav/worlds/human_env.wbt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Create text.txt",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "bd4d13eafd65c7d1b4b9cc55049767b133246af8",
+            "additions": 1,
+            "deletions": 0,
+            "files_changed": [
+              "test/text.txt"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-12-02",
+          "type": "code",
+          "description": "Create human_nav_ws",
+          "complexity": "trivial",
+          "status": "completed",
+          "metadata": {
+            "sha": "bdd6060e13f6bb876b9a64a87ef8e93639e0d276",
+            "additions": 1,
+            "deletions": 0,
+            "files_changed": [
+              "human_nav_ws"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-19",
+          "type": "code",
+          "description": "Add save_map.py for saving SLAM maps",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "59b2b8cd29e1b4f1db0d2e9144d773598c7a3902",
+            "additions": 23,
+            "deletions": 0,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/scripts/save_map.py"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-19",
+          "type": "code",
+          "description": "Add slam_params.yaml for SLAM configuration",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "65b904a60dc21d8c8d0794cd103799d3b24a4c68",
+            "additions": 14,
+            "deletions": 0,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/config/slam_params.yaml"
+            ],
+            "platform": "github"
+          }
+        },
+        {
+          "date": "2025-11-19",
+          "type": "code",
+          "description": "Add launch file for turtlebot SLAM",
+          "complexity": "low",
+          "status": "completed",
+          "metadata": {
+            "sha": "e7c4c966cf20155641cd640eaad3085c64caef86",
+            "additions": 18,
+            "deletions": 0,
+            "files_changed": [
+              "slam_ws/src/turtlebot_slam/launch/slam.launch.py"
+            ],
+            "platform": "github"
+          }
+        }
+      ]
+    }
+  ]
+}

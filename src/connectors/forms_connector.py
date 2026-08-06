@@ -1,14 +1,5 @@
-"""
-Google Forms data connector for FairCollab.
-
-Reads two Google Sheets that Google Forms writes responses into -- a task
-assignment form and a peer review form -- via the Google Sheets API using a
-service account, and converts each into FairCollab's data shapes. Also
-cross-references assigned tasks against GitHub commit messages (simple
-keyword overlap, not NLP) to estimate how many assigned tasks were completed.
-
-The fully combined per-student shape this module documents (and that
-build_student_summary() produces) is:
+"""Google Forms connector for FairCollab: reads task/peer-review responses via the Sheets API and
+cross-references tasks against GitHub commits. build_student_summary() combines everything into:
 
     {
         "Student A": {
@@ -102,8 +93,7 @@ def _get_all_records(client: gspread.Client, spreadsheet_id: str, context: str) 
         raise FormsConnectorError(f"Google Sheets API error while {context}: {exc}") from exc
     # sheet1 is the tab Google Forms writes responses into.
     worksheet = spreadsheet.sheet1
-    # Strip header whitespace -- Google Forms sometimes pads question text
-    # with spaces, which would otherwise make dict lookups silently miss.
+    # Strips header whitespace -- Google Forms sometimes pads headers, breaking dict lookups otherwise.
     records = worksheet.get_all_records()
     return [{k.strip(): v for k, v in row.items()} for row in records]
 
@@ -114,23 +104,26 @@ def _split_tasks(raw_tasks_cell: str) -> list:
     return [line.strip() for line in lines if line.strip()]
 
 
-def _parse_task_assignment_records(records: list) -> dict:
-    """Turn task-assignment response rows into {student: {tasks_assigned, task_descriptions}}."""
+def _parse_task_assignment_records(records: list) -> tuple:
+    """Turn task-assignment rows into (per-student data, submitted_students set)."""
     result = {}
+    submitted_students = set()
     for row in records:
         student_name = str(row.get(TASK_FORM_COL_STUDENT_NAME, "")).strip()
         if not student_name:
             continue
+        # Counts as a submission even if their task list is empty this row.
+        submitted_students.add(student_name)
         tasks = _split_tasks(row.get(TASK_FORM_COL_TASKS, ""))
         # setdefault so multiple submissions from the same student accumulate.
         entry = result.setdefault(student_name, {"tasks_assigned": 0, "task_descriptions": []})
         entry["tasks_assigned"] += len(tasks)
         entry["task_descriptions"].extend(tasks)
-    return result
+    return result, submitted_students
 
 
-def fetch_task_assignments(spreadsheet_id: str, service_account_path: str) -> dict:
-    """Fetch every task-assignment response and return {student: {tasks_assigned, task_descriptions}}."""
+def fetch_task_assignments(spreadsheet_id: str, service_account_path: str) -> tuple:
+    """Fetch every task-assignment response; also returns which students submitted (even with zero tasks)."""
     if not spreadsheet_id or not spreadsheet_id.strip():
         raise InvalidSpreadsheetIDError("No spreadsheet ID was provided.")
     client = _get_gspread_client(service_account_path)
@@ -202,12 +195,7 @@ def _keywords_overlap(task_keywords: set, commit_keywords: set) -> bool:
 
 
 def cross_reference_with_commits(task_assignments: dict, contributions_by_student: dict) -> dict:
-    """Estimate tasks_completed per student by keyword-matching tasks against commit messages.
-
-    task_assignments: fetch_task_assignments()'s output.
-    contributions_by_student: {student: [contribution record, ...]}, each with a "description".
-    Returns {student: tasks_completed_count}.
-    """
+    """Estimate tasks_completed per student by keyword-matching tasks against commit messages."""
     tasks_completed = {}
     for student, assignment in task_assignments.items():
         commit_keyword_sets = [

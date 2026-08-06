@@ -1,19 +1,5 @@
-"""
-Streamlit web interface for FairCollab.
-
-Lets a user pick a project type and a student from the sidebar, click
-"Generate Assessment", and see the five-node LangGraph agent's result
-(src/agent.py's run_assessment()) laid out in the main area: an overall
-rating badge plus four expandable sections for integrity, evidence, factor
-analysis, and the overall reasoning.
-
-Also hosts the "Live Data" project type: a sidebar section with three tabs
-(GitHub, Task Assignment Form, Peer Review Form) that fetch real data via
-src/connectors and write it straight into data/robotics_project.json, plus
-a "Fetch All" button that runs every source and rebuilds the RAG index.
-Every field in that section is auto-saved to data/live_config.json so the
-values survive an app restart.
-"""
+"""Streamlit UI for FairCollab: run assessments, plus a Live Data sidebar section that fetches
+GitHub/Form data into robotics_project.json and rebuilds the RAG index."""
 
 import streamlit as st
 import json
@@ -21,9 +7,7 @@ import os
 import sys
 import pandas as pd
 
-# `streamlit run src/app.py` puts this file's own directory on sys.path
-# instead of the project root, so "from src..." imports below would fail
-# without this.
+# Puts project root on sys.path so `from src...` imports work under `streamlit run`.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.agent import run_assessment, MAX_REVISIONS
@@ -99,8 +83,7 @@ def _persist_live_config(mapping_df: pd.DataFrame) -> None:
         "github_email_mapping": mapping_df.fillna("").to_dict(orient="records"),
         "task_spreadsheet_id": st.session_state.get("live_task_spreadsheet_id", ""),
         "peer_spreadsheet_id": st.session_state.get("live_peer_spreadsheet_id", ""),
-        # Tabs 2 and 3 each have their own field but share one config slot;
-        # whichever was touched most recently wins.
+        # Tabs 2 and 3 share one config slot; most recently touched wins.
         "service_account_path": st.session_state.get(
             "live_peer_service_account_path",
             st.session_state.get("live_service_account_path", DEFAULT_LIVE_CONFIG["service_account_path"]),
@@ -117,12 +100,7 @@ def _load_existing_contributions() -> dict:
 
 
 def _replace_fields_in_robotics(updates_by_field: dict, project_name: str = None) -> set:
-    """Overwrite (not merge) one or more fields on matching students in robotics_project.json.
-
-    updates_by_field: {field_name: {student_name: new_value}}.
-    Returns the set of student names that didn't match any student in
-    robotics_project.json, so the caller can warn about them.
-    """
+    """Overwrite (not merge) given fields on matching students in robotics_project.json; returns unmatched names."""
     all_names = set()
     for per_student in updates_by_field.values():
         all_names.update(per_student.keys())
@@ -260,8 +238,7 @@ with st.sidebar:
                     f"Found {len(st.session_state.detected_contributors)} contributors. "
                     f"Assign each to a student name below."
                 )
-                # Read-only reference table: a SelectboxColumn can't display a
-                # raw name outside its options, so this is how the user sees who's who.
+                # SelectboxColumn hides values outside its options -- this table shows the real names.
                 st.dataframe(
                     pd.DataFrame(st.session_state.detected_contributors).rename(
                         columns={"email": "Email", "name": "GitHub Name"}
@@ -376,7 +353,7 @@ with st.sidebar:
                 else:
                     with st.spinner("Fetching task assignments..."):
                         try:
-                            task_assignments = fetch_task_assignments(
+                            task_assignments, submitted_students = fetch_task_assignments(
                                 task_spreadsheet_id.strip(), task_service_account_path.strip()
                             )
                             # Cross-reference against whatever GitHub data is already stored.
@@ -391,6 +368,7 @@ with st.sidebar:
                                         name: data["task_descriptions"] for name, data in task_assignments.items()
                                     },
                                     "tasks_completed": tasks_completed,
+                                    "task_form_submitted": {name: True for name in submitted_students},
                                 },
                                 project_name=st.session_state.get("live_project_name"),
                             )
@@ -518,7 +496,7 @@ with st.sidebar:
 
                 if task_spreadsheet_id.strip():
                     try:
-                        task_assignments = fetch_task_assignments(
+                        task_assignments, submitted_students = fetch_task_assignments(
                             task_spreadsheet_id.strip(), task_service_account_path.strip()
                         )
                         # Reads fresh from disk, so this picks up step 1's commits if it ran.
@@ -533,6 +511,7 @@ with st.sidebar:
                                     name: data["task_descriptions"] for name, data in task_assignments.items()
                                 },
                                 "tasks_completed": tasks_completed,
+                                "task_form_submitted": {name: True for name in submitted_students},
                             }
                         )
                         total_tasks = sum(data["tasks_assigned"] for data in task_assignments.values())

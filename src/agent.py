@@ -1,12 +1,4 @@
-"""
-LangGraph assessment agent for FairCollab.
-
-Wires together five nodes: retrieve evidence, run heuristic integrity
-(fraud-signal) checks, run per-factor LLM analysis, roll that up into an
-overall rating, then have a separate LLM call validate every claim -- looping
-back to re-run the factor analysis (up to twice) if validation says the
-assessment needs revision.
-"""
+"""LangGraph assessment agent for FairCollab -- five nodes: evidence, integrity, factor analysis, overall rating, validation."""
 
 import os
 
@@ -89,10 +81,7 @@ def _load_project(path: str) -> dict:
 
 
 def _find_student(student_name: str, project_id: str = None) -> tuple:
-    """Search project files for a student and return (project, student_record).
-
-    project_id: optional -- restricts the search to the matching project.
-    """
+    """Search project files for a student, optionally scoped to one project_id."""
     for path in (STUDENTS_PATH, RESEARCH_STUDENTS_PATH, ROBOTICS_PATH):
         project = _load_project(path)
         if project_id is not None and project.get("project_id") != project_id:
@@ -109,12 +98,23 @@ def _format_stats(student_record: dict) -> str:
     completed = student_record.get("tasks_completed", 0)
     attended = student_record.get("meetings_attended", 0)
     total_meetings = student_record.get("meetings_total", 0)
-    completion_pct = round(100 * completed / assigned) if assigned else 0
-    attendance_pct = round(100 * attended / total_meetings) if total_meetings else 0
-    return (
-        f"Tasks completed: {completed}/{assigned} ({completion_pct}%)\n"
-        f"Meetings attended: {attended}/{total_meetings} ({attendance_pct}%)"
-    )
+    task_submitted = student_record.get("task_form_submitted", False)
+    meeting_submitted = student_record.get("meeting_data_submitted", False)
+
+    # Also checks == 0 so legacy records with real counts aren't misreported as missing.
+    if not task_submitted and assigned == 0:
+        task_line = "Task completion: no data available (task assignment form not yet submitted)"
+    else:
+        completion_pct = round(100 * completed / assigned) if assigned else 0
+        task_line = f"Tasks completed: {completed}/{assigned} ({completion_pct}%)"
+
+    if not meeting_submitted and total_meetings == 0:
+        meeting_line = "Meeting attendance: no data available (no meeting data submitted)"
+    else:
+        attendance_pct = round(100 * attended / total_meetings) if total_meetings else 0
+        meeting_line = f"Meetings attended: {attended}/{total_meetings} ({attendance_pct}%)"
+
+    return f"{task_line}\n{meeting_line}"
 
 
 def _format_evidence(documents: list) -> str:
@@ -330,13 +330,7 @@ def build_graph():
 
 
 def run_assessment(student_name: str, project_id: str = None) -> AgentState:
-    """Run the full five-node assessment for one student and return the final state.
-
-    Returns the whole AgentState dict, not just final_output's flattened
-    text, so callers can pull individual fields (overall_rating, evidence_docs,
-    etc.) directly. project_id disambiguates a student_name that exists in
-    more than one project.
-    """
+    """Run the full assessment for one student; project_id disambiguates same-named students across projects."""
     app = build_graph()
     return app.invoke({"student_name": student_name, "project_id": project_id})
 

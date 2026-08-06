@@ -11,6 +11,8 @@
       "tasks_completed": 3,
       "meetings_attended": 0,
       "meetings_total": 0,
+      "task_form_submitted": true,
+      "meeting_data_submitted": false,
       "peer_feedback": [
         "Rating 5/5: Waleed built the entire Kalman tracker and simulation setup, was the main integrator who kept everything working together",
         "Rating 5/5: Waleed's Kalman tracker and adaptive safety work was the backbone of the system, excellent integration across all components",
@@ -644,6 +646,8 @@
       "tasks_completed": 1,
       "meetings_attended": 0,
       "meetings_total": 0,
+      "task_form_submitted": true,
+      "meeting_data_submitted": false,
       "peer_feedback": [
         "Rating 4/5",
         "Rating 4/5",
@@ -713,6 +717,8 @@
       "tasks_completed": 3,
       "meetings_attended": 0,
       "meetings_total": 0,
+      "task_form_submitted": true,
+      "meeting_data_submitted": false,
       "peer_feedback": [
         "Rating 5/5",
         "Rating 4/5",
@@ -1347,6 +1353,8 @@
       "tasks_completed": 2,
       "meetings_attended": 0,
       "meetings_total": 0,
+      "task_form_submitted": true,
+      "meeting_data_submitted": false,
       "peer_feedback": [
         "Rating 4/5: Shiwang handled SLAM setup and wrote the technical report clearly documenting the evaluation framework",
         "Rating 3/5: Shiwang contributed to SLAM and report writing but was less active during the final integration phase",

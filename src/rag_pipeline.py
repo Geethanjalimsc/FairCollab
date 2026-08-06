@@ -1,8 +1,4 @@
-"""
-RAG pipeline for FairCollab: builds a searchable evidence store out of the
-raw student contribution logs so the assessment agents can retrieve the
-specific records that justify a fairness judgement about one student.
-"""
+"""RAG pipeline for FairCollab: builds a searchable evidence index from student contribution logs."""
 
 import os
 
@@ -85,7 +81,7 @@ def _feedback_to_document(project: dict, student: dict, feedback_text: str, inde
 
 
 def build_documents() -> list:
-    """Load both data files and flatten every record into a list of Documents."""
+    """Load all project data files and flatten every record into a list of Documents."""
     projects = [
         _load_json(STUDENTS_PATH),
         _load_json(RESEARCH_STUDENTS_PATH),
@@ -133,18 +129,26 @@ def _load_index() -> FAISS:
 
 
 def retrieve_evidence(student_name: str, k: int = 8, project_id: str = None) -> list:
-    """Return the top-k most relevant contribution/feedback records for one student."""
+    """Return top-k contribution records for one student plus a smaller top slice of peer feedback."""
     vector_store = _load_index()
 
     # Student names repeat across projects, so scope by project_id too when given.
+    base_filter = {"student_name": student_name}
     if project_id is not None:
-        search_filter = {"student_name": student_name, "project_id": project_id}
-    else:
-        search_filter = {"student_name": student_name}
+        base_filter["project_id"] = project_id
 
-    results = vector_store.similarity_search(
-        student_name, k=k, filter=search_filter, fetch_k=200
+    # Searched separately so contribution volume can't crowd out peer feedback.
+    contribution_results = vector_store.similarity_search(
+        student_name, k=k, filter={**base_filter, "record_type": "contribution"}, fetch_k=200
     )
+
+    # Peer feedback is supporting evidence, so its cap is lower than k.
+    peer_feedback_k = max(1, round(k * 0.4))
+    peer_feedback_results = vector_store.similarity_search(
+        student_name, k=peer_feedback_k, filter={**base_filter, "record_type": "peer_feedback"}, fetch_k=200
+    )
+
+    results = contribution_results + peer_feedback_results
 
     if not results:
         results = vector_store.similarity_search(student_name, k=k)

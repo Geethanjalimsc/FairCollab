@@ -1,11 +1,4 @@
-"""
-Prompt templates for FairCollab's LangGraph contribution-assessment agent.
-
-Each prompt below is a plain `.format(**kwargs)` string rather than a
-langchain_core PromptTemplate/ChatPromptTemplate, since no graph/node code
-exists yet to consume a Runnable, and plain strings keep this file
-dependency-light and directly readable.
-"""
+"""Prompt templates for FairCollab's LangGraph agent -- plain .format() strings, no PromptTemplate needed yet."""
 
 FACTOR_PROMPT = (
     "You are an impartial teaching-assistant AI assessing one student's "
@@ -85,6 +78,18 @@ FACTOR_PROMPT = (
     "literature, presentation), still evaluate it on its description "
     "and complexity under the relevant factor(s) -- never discard or "
     "down-weight it just because the label is unfamiliar.\n"
+    "- If a contribution's description is generic or vague (e.g. \"fix "
+    "bug\", \"update file\", \"add files via upload\"), do not treat "
+    "this as automatically low quality or low effort. Instead, weigh "
+    "it using whatever metadata is available alongside it -- "
+    "complexity level, number of files changed, or lines changed if "
+    "present in the evidence. A vague description paired with high "
+    "complexity and many changed files still indicates substantial "
+    "work, even though the specific nature of that work is unclear "
+    "from the wording alone. Only rate Quality as Low due to vagueness "
+    "if the metadata (where available) also indicates low complexity "
+    "or minimal change size -- vague wording alone is not sufficient "
+    "grounds for a Low quality rating.\n"
 )
 
 OVERALL_PROMPT = (
@@ -144,6 +149,21 @@ VALIDATION_PROMPT = (
     "inferred from several dated entries spread over multiple weeks); "
     "inventing a specific fact, number, date, or quote that appears "
     "nowhere above is not, and must be flagged.\n\n"
+
+    "If STUDENT STATS explicitly states \"no data available\" for a "
+    "metric, do not flag reasoning that acknowledges this limitation as "
+    "unsupported -- explicitly acknowledging missing data is honest "
+    "reporting, not a fabrication.\n\n"
+
+    "When evidence descriptions are short or generic (e.g. vague commit "
+    "messages with no detailed explanation), reasonable inference drawn "
+    "from available metadata -- complexity level, file count, lines "
+    "changed, contribution type, or date -- is acceptable and must not "
+    "trigger REVISION NEEDED. Only flag a claim as unsupported if it "
+    "states a SPECIFIC fact, number, or detail that contradicts or is "
+    "absent from both STUDENT STATS and RETRIEVED EVIDENCE -- a "
+    "reasonable, evidence-grounded inference is not the same as an "
+    "invented fact.\n\n"
 
     "Also check:\n"
     "- Every cited [E#] tag actually exists in RETRIEVED EVIDENCE and "

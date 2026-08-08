@@ -5,12 +5,14 @@ import streamlit as st
 import json
 import os
 import sys
+import html
+import time
 import pandas as pd
 
 # Puts project root on sys.path so `from src...` imports work under `streamlit run`.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.agent import run_assessment, MAX_REVISIONS
+from src.agent import run_assessment_streaming, MAX_REVISIONS
 from src.rag_pipeline import STUDENTS_PATH, RESEARCH_STUDENTS_PATH, ROBOTICS_PATH, build_and_save_index
 from src.connectors.github_connector import fetch_and_map_commits, detect_contributors, GitHubConnectorError
 from src.connectors.forms_connector import (
@@ -20,9 +22,348 @@ from src.connectors.forms_connector import (
     FormsConnectorError,
 )
 
-st.set_page_config(page_title="FairCollab", page_icon="⚖️", layout="centered")
+st.set_page_config(page_title="FairCollab", page_icon=":material/balance:", layout="centered")
 
-RATING_COLORS = {"High": "green", "Medium": "orange", "Low": "red", "Unknown": "gray"}
+# Loads Inter/JetBrains Mono and styles the custom badge/card/section-header
+# components that native Streamlit theming (.streamlit/config.toml) can't reach.
+_CUSTOM_CSS = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Space Grotesk', sans-serif;
+}
+code, pre, [data-testid="stCodeBlock"] {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#MainMenu, footer {
+    visibility: hidden;
+}
+
+.fc-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #E2E8F0;
+    margin-bottom: 0.15rem;
+}
+.fc-brand-mark {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 0.2rem;
+    background: #818CF8;
+    flex-shrink: 0;
+}
+
+/* Whole-app framing: a bordered panel around the main content area, and a
+   strengthened separator on the sidebar's right edge. */
+[data-testid="stMain"] {
+    border: 1px solid #334155 !important;
+    border-radius: 16px !important;
+    padding: 1rem 1.25rem !important;
+}
+[data-testid="stSidebar"] {
+    border-right: 1px solid #334155 !important;
+}
+
+[data-testid="stExpander"] {
+    border: 1px solid #334155 !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    background: #1E293B;
+    margin-bottom: 0.75rem;
+}
+[data-testid="stExpander"] summary {
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #818CF8;
+}
+
+.stButton > button {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.stButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(129, 140, 246, 0.28);
+}
+
+.fc-rating-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin: 0.5rem 0 1rem 0;
+}
+.fc-rating-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #94A3B8;
+}
+.fc-rating-value {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+.fc-rating-high { color: #39FF14; text-shadow: 0 0 8px rgba(57, 255, 20, 0.5); }
+.fc-rating-medium { color: #FFEA00; text-shadow: 0 0 8px rgba(255, 234, 0, 0.5); }
+.fc-rating-low { color: #FF1053; text-shadow: 0 0 8px rgba(255, 16, 83, 0.5); }
+.fc-rating-unknown { color: #94A3B8; }
+
+.fc-evidence-card {
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.55rem;
+}
+.fc-evidence-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #22D3EE;
+}
+.fc-evidence-text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #E2E8F0;
+}
+
+/* Custom loading indicator: repurposes st.spinner()'s icon slot (a stable
+   data-testid, unlike its auto-generated class names) into an indeterminate
+   bicycle progress bar, applying to every st.spinner() call automatically. */
+[data-testid="stSpinner"] > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    padding: 0.6rem 0 !important;
+}
+[data-testid="stSpinnerIcon"] {
+    width: 220px !important;
+    height: 8px !important;
+    border: none !important;
+    border-radius: 999px !important;
+    background: #334155 !important;
+    position: relative !important;
+    overflow: visible !important;
+    animation: none !important;
+}
+[data-testid="stSpinnerIcon"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 35%;
+    border-radius: 999px;
+    background: #818CF8;
+    animation: fc-bar-fill-slide 1.6s ease-in-out infinite alternate;
+}
+[data-testid="stSpinnerIcon"]::after {
+    content: "🚲";
+    position: absolute;
+    top: -11px;
+    left: 35%;
+    font-size: 15px;
+    line-height: 1;
+    animation: fc-bar-bike-slide 1.6s ease-in-out infinite alternate;
+}
+@keyframes fc-bar-fill-slide {
+    0%   { left: 0%; }
+    100% { left: 65%; }
+}
+@keyframes fc-bar-bike-slide {
+    0%   { left: 35%; }
+    100% { left: 100%; }
+}
+
+/* Determinate progress bar for Generate Assessment: fill width and bike position
+   are set from real pipeline state (run_assessment_streaming), not animated. Only
+   the wheels spin continuously -- realistic for a bike that's actually moving. */
+.fc-progress-wrap {
+    max-width: 360px;
+    margin: 0.75rem auto 1.1rem auto;
+}
+.fc-progress-track {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: #334155;
+    overflow: visible;
+}
+.fc-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: #818CF8;
+    transition: width 0.5s ease;
+}
+.fc-progress-bike {
+    position: absolute;
+    top: -19px;
+    transform: translateX(-50%);
+    color: #818CF8;
+    transition: left 0.5s ease;
+}
+.fc-bike-svg {
+    width: 34px;
+    height: 21px;
+    display: block;
+}
+.fc-bike-wheel {
+    /* view-box (not fill-box) so the pixel transform-origin below lines up with
+       each wheel's own cx/cy in SVG user-space, instead of its own bounding box. */
+    transform-box: view-box;
+    animation: fc-wheel-spin 0.7s linear infinite;
+}
+@keyframes fc-wheel-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.fc-progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+.fc-progress-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #818CF8;
+}
+.fc-progress-label {
+    color: #94A3B8;
+}
+
+/* App-boot overlay: covers the gap between Streamlit's shell connecting and this
+   script's first run finishing (theme/CSS applied, sidebar built). Fixed + high
+   z-index so it sits above the sidebar and everything else until cleared. */
+.fc-boot-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0F172A;
+}
+.fc-boot-bike-svg {
+    width: 104px;
+    height: 65px;
+    display: block;
+    color: #818CF8;
+}
+</style>
+"""
+st.markdown(_CUSTOM_CSS, unsafe_allow_html=True)
+
+# CSS class per rating value, for the pill badge rendered by _render_rating_badge().
+RATING_BADGE_CLASSES = {"High": "fc-rating-high", "Medium": "fc-rating-medium", "Low": "fc-rating-low", "Unknown": "fc-rating-unknown"}
+
+# Human-readable label and target fill percentage per graph node, keyed to run_assessment_streaming()'s
+# yielded "node" values. "done" is the generator's synthetic final sentinel, not a real graph node.
+NODE_LABELS = {
+    "retrieve_evidence": "Retrieving evidence",
+    "integrity_analysis": "Checking integrity",
+    "factor_analysis": "Analysing factors",
+    "overall_assessment": "Synthesising assessment",
+    "validate": "Validating claims",
+}
+NODE_PROGRESS = {
+    "retrieve_evidence": 20,
+    "integrity_analysis": 40,
+    "factor_analysis": 60,
+    "overall_assessment": 80,
+    "validate": 95,
+    "done": 100,
+}
+
+# A real inline SVG (not the CSS spinner's emoji glyph) so the two wheels are separate elements
+# that .fc-bike-wheel's CSS animation can spin independently of the marker's position. Shared by
+# the progress bar and the boot overlay below -- css_class controls size only, geometry is fixed.
+def _bike_svg(css_class: str) -> str:
+    """Build the inline bicycle SVG at a given CSS size class."""
+    return (
+        f'<svg viewBox="0 0 48 30" class="{css_class}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+        '<path d="M9,23 L22,9 L31,9 L39,23 M22,9 L16,23 M25,9 L29,4 L34,4" fill="none" '
+        'stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<g class="fc-bike-wheel" style="transform-origin:9px 23px;">'
+        '<circle cx="9" cy="23" r="7" fill="none" stroke="currentColor" stroke-width="2"/>'
+        '<line x1="9" y1="17" x2="9" y2="29" stroke="currentColor" stroke-width="1.3"/>'
+        '<line x1="3" y1="23" x2="15" y2="23" stroke="currentColor" stroke-width="1.3"/>'
+        "</g>"
+        '<g class="fc-bike-wheel" style="transform-origin:39px 23px;">'
+        '<circle cx="39" cy="23" r="7" fill="none" stroke="currentColor" stroke-width="2"/>'
+        '<line x1="39" y1="17" x2="39" y2="29" stroke="currentColor" stroke-width="1.3"/>'
+        '<line x1="33" y1="23" x2="45" y2="23" stroke="currentColor" stroke-width="1.3"/>'
+        "</g>"
+        "</svg>"
+    )
+
+
+_BIKE_SVG = _bike_svg("fc-bike-svg")
+
+# Streamlit has no supported hook to inject HTML into index.html before its own JS mounts:
+# `streamlit config show` has no such key, and index.html itself lives inside the installed
+# package under venv/, not this project's source -- hand-editing it wouldn't survive a fresh
+# `pip install` or reach anyone else who runs this app. So this covers the next best gap: the
+# moment after Streamlit's shell has connected but before this script's first run has finished
+# painting the real page (theme CSS, sidebar, data). st.session_state marks it done so later
+# reruns (button clicks, widget changes) never show it again.
+_BOOT_SPINNER_HTML = f'<div class="fc-boot-overlay">{_bike_svg("fc-boot-bike-svg")}</div>'
+_boot_placeholder = st.empty()
+if "_app_booted" not in st.session_state:
+    _boot_placeholder.markdown(_BOOT_SPINNER_HTML, unsafe_allow_html=True)
+
+
+def _render_progress_html(pct: int, label: str) -> str:
+    """Build the determinate progress bar's HTML: a real inline width plus a bike marker at the fill edge."""
+    pct = max(0, min(100, pct))
+    return (
+        f'<div class="fc-progress-wrap">'
+        f'<div class="fc-progress-track">'
+        f'<div class="fc-progress-fill" style="width:{pct}%;"></div>'
+        f'<span class="fc-progress-bike" style="left:{pct}%;">{_BIKE_SVG}</span>'
+        f"</div>"
+        f'<div class="fc-progress-meta">'
+        f'<span class="fc-progress-pct">{pct}%</span>'
+        f'<span class="fc-progress-label">{html.escape(label)}</span>'
+        f"</div>"
+        f"</div>"
+    )
+
+
+def _render_rating_badge(rating: str) -> None:
+    """Render the overall rating as plain neon-glow text (no pill background)."""
+    badge_class = RATING_BADGE_CLASSES.get(rating, "fc-rating-unknown")
+    st.markdown(
+        f'<div class="fc-rating-badge">'
+        f'<span class="fc-rating-label">Overall Rating</span>'
+        f'<span class="fc-rating-value {badge_class}">{html.escape(rating)}</span>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def _render_evidence_card(index: int, page_content: str) -> None:
+    """Render one evidence citation as a card with an [E#] tag inline before the text, no tag background."""
+    st.markdown(
+        f'<div class="fc-evidence-card">'
+        f'<p class="fc-evidence-text"><span class="fc-evidence-tag">E{index}</span> {html.escape(page_content)}</p>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
 
 LIVE_CONFIG_PATH = os.path.join(os.path.dirname(STUDENTS_PATH), "live_config.json")
 
@@ -171,7 +512,7 @@ for _key, _default in {
 _live_config = _load_live_config()
 
 with st.sidebar:
-    st.title("⚖️ FairCollab")
+    st.markdown('<div class="fc-brand"><span class="fc-brand-mark"></span>FairCollab</div>', unsafe_allow_html=True)
     st.caption("AI-powered group contribution assessment")
     st.divider()
 
@@ -195,7 +536,7 @@ with st.sidebar:
             st.session_state["live_project_name"] = _live_config["project_name"]
         st.text_input("Project Name", key="live_project_name", placeholder="e.g. Autonomous Robotics Team")
 
-        tab_github, tab_tasks, tab_peer = st.tabs(["🐙 GitHub", "📋 Task Assignment Form", "📝 Peer Review Form"])
+        tab_github, tab_tasks, tab_peer = st.tabs(["GitHub", "Task Assignment", "Peer Review"])
 
         # --- Tab 1: GitHub -- writes to robotics_project.json, replacing contributions ---
         with tab_github:
@@ -213,7 +554,9 @@ with st.sidebar:
                 key="github_pat",
             )
 
-            detect_clicked = st.button("🔍 Detect Contributors", width="stretch", key="detect_contributors_button")
+            detect_clicked = st.button(
+                "Detect Contributors", icon=":material/search:", width="stretch", key="detect_contributors_button"
+            )
             if detect_clicked:
                 st.session_state.detected_contributors = None
                 st.session_state.detect_error = None
@@ -472,7 +815,11 @@ with st.sidebar:
 
         st.divider()
         fetch_all_clicked = st.button(
-            "🔄 Fetch All Data Sources", type="primary", width="stretch", key="fetch_all_button"
+            "Fetch All Data Sources",
+            icon=":material/sync:",
+            type="primary",
+            width="stretch",
+            key="fetch_all_button",
         )
 
         if fetch_all_clicked:
@@ -556,22 +903,44 @@ with st.sidebar:
         if st.session_state.fetch_all_summary:
             st.success("Fetch All complete:\n" + "\n".join(f"- {line}" for line in st.session_state.fetch_all_summary))
 
+# Sidebar (and everything above) has now rendered -- drop the boot overlay and never show it again.
+_boot_placeholder.empty()
+st.session_state["_app_booted"] = True
+
 if generate_clicked:
     st.session_state.result = None
     st.session_state.error = None
-    with st.spinner(f"Assessing {selected_student}... this runs multiple AI calls and may take a minute."):
-        try:
-            # project_id scopes retrieval, since every project reuses "Student A"/"B"/"C"/"D".
-            st.session_state.result = run_assessment(selected_student, project_id=selected_project["project_id"])
-        except Exception as exc:
-            if _is_quota_error(exc):
-                st.session_state.error = (
-                    "Gemini API quota exceeded. Please wait a minute and try again, "
-                    "or check your plan/billing at "
-                    "https://ai.google.dev/gemini-api/docs/rate-limits."
-                )
+    progress_slot = st.empty()
+    displayed_pct = 0
+    try:
+        # project_id scopes retrieval, since every project reuses "Student A"/"B"/"C"/"D".
+        for update in run_assessment_streaming(selected_student, project_id=selected_project["project_id"]):
+            node = update["node"]
+            if node == "done":
+                progress_slot.markdown(_render_progress_html(100, "Complete"), unsafe_allow_html=True)
+                time.sleep(0.4)  # briefly show 100% before the result replaces it
+                st.session_state.result = update["final_state"]
+                break
+            revision_count = update["chunk"].get("revision_count", 0)
+            # Revisions loop back to factor_analysis, whose target% is lower than validate's --
+            # never let the displayed number regress, only the label communicates the retry.
+            displayed_pct = max(displayed_pct, NODE_PROGRESS.get(node, displayed_pct))
+            if node == "factor_analysis" and revision_count > 0:
+                label = f"Revising analysis (attempt {revision_count + 1} of {MAX_REVISIONS + 1})"
             else:
-                st.session_state.error = f"Assessment failed: {exc}"
+                label = NODE_LABELS.get(node, node)
+            progress_slot.markdown(_render_progress_html(displayed_pct, label), unsafe_allow_html=True)
+    except Exception as exc:
+        if _is_quota_error(exc):
+            st.session_state.error = (
+                "Gemini API quota exceeded. Please wait a minute and try again, "
+                "or check your plan/billing at "
+                "https://ai.google.dev/gemini-api/docs/rate-limits."
+            )
+        else:
+            st.session_state.error = f"Assessment failed: {exc}"
+    finally:
+        progress_slot.empty()
 
 if st.session_state.error:
     st.error(st.session_state.error)
@@ -581,8 +950,7 @@ if st.session_state.result:
     st.header(f"{result['student_name']} — {result['project_name']}")
 
     rating = result.get("overall_rating", "Unknown")
-    color = RATING_COLORS.get(rating, "gray")
-    st.markdown(f"## Overall Rating: :{color}[{rating}]")
+    _render_rating_badge(rating)
 
     if result.get("max_revisions_reached"):
         st.warning(
@@ -592,15 +960,15 @@ if st.session_state.result:
 
     st.write("")
 
-    with st.expander("🔍 Integrity Check"):
+    with st.expander("Integrity Check"):
         st.write(result["integrity_notes"])
 
-    with st.expander("📄 Evidence Retrieved"):
+    with st.expander("Evidence Retrieved"):
         for index, document in enumerate(result["evidence_docs"], start=1):
-            st.markdown(f"**[E{index}]** {document.page_content}")
+            _render_evidence_card(index, document.page_content)
 
-    with st.expander("📊 Factor Analysis"):
+    with st.expander("Factor Analysis"):
         st.markdown(_with_hard_line_breaks(result["factor_analysis"]))
 
-    with st.expander("✅ Overall Assessment"):
+    with st.expander("Overall Assessment"):
         st.markdown(_with_hard_line_breaks(result["overall_assessment"]))

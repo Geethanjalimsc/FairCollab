@@ -1,12 +1,4 @@
-"""
-GitHub data connector for FairCollab.
-
-Fetches every commit from a GitHub repository via the REST API v3, maps each
-commit to a student using an email -> student-name dictionary, and converts
-the matched commits into FairCollab's existing contribution-record schema
-(the same shape used by data/students.json and data/research_students.json)
-so they can be merged into the rest of the assessment pipeline.
-"""
+"""GitHub connector for FairCollab: fetches commits via the REST API v3 into FairCollab's contribution schema."""
 
 import re
 import logging
@@ -77,8 +69,7 @@ def _raise_for_response_errors(response: requests.Response, context: str) -> Non
             f"Check that it's correct and hasn't expired."
         )
     if response.status_code == 403:
-        # GitHub overloads 403 for both "no permission" and "rate limited";
-        # X-RateLimit-Remaining: 0 is how you tell them apart.
+        # GitHub overloads 403 for no-permission and rate-limited; check X-RateLimit-Remaining to tell apart.
         remaining = response.headers.get("X-RateLimit-Remaining")
         if remaining == "0":
             reset_timestamp = response.headers.get("X-RateLimit-Reset", "unknown")
@@ -92,8 +83,7 @@ def _raise_for_response_errors(response: requests.Response, context: str) -> Non
             f"missing the required scope, or the repository may be private."
         )
     if response.status_code == 404:
-        # GitHub returns 404 (not 403) for a private repo the token can't see,
-        # to avoid leaking that the repo exists at all.
+        # GitHub returns 404 for both missing and private repos, to avoid leaking existence.
         raise RepositoryNotFoundError(
             f"Repository not found while {context}. Check the URL is correct, "
             f"and that the PAT has access if the repository is private."
@@ -182,12 +172,7 @@ def _commit_to_record(commit_summary: dict, commit_detail: dict) -> dict:
 
 
 def fetch_and_map_commits(repo_url: str, pat: str, student_mapping: dict) -> dict:
-    """Fetch every commit from a GitHub repo and group it into per-student contribution records.
-
-    student_mapping: {commit author email: student name}.
-    Returns {student name: [contribution record, ...]}. Commits whose author
-    email isn't in student_mapping are skipped (and logged), not raised as errors.
-    """
+    """Fetch every commit and group into per-student contribution records; unmatched emails are skipped."""
     if not pat:
         raise AuthenticationError("No Personal Access Token was provided.")
     owner, repo = _parse_repo_url(repo_url)
@@ -211,11 +196,7 @@ def fetch_and_map_commits(repo_url: str, pat: str, student_mapping: dict) -> dic
 
 
 def detect_contributors(repo_url: str, pat: str) -> list:
-    """Fetch all unique commit authors from a GitHub repo.
-
-    Returns a list of dicts: [{"email": "...", "name": "..."}, ...]
-    Raises the same exceptions as fetch_and_map_commits.
-    """
+    """Fetch all unique commit authors as [{"email": ..., "name": ...}, ...]; same exceptions as fetch_and_map_commits."""
     if not pat:
         raise AuthenticationError("No Personal Access Token was provided.")
 

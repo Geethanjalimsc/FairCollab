@@ -335,6 +335,25 @@ def run_assessment(student_name: str, project_id: str = None) -> AgentState:
     return app.invoke({"student_name": student_name, "project_id": project_id})
 
 
+def run_assessment_streaming(student_name: str, project_id: str = None):
+    """Same as run_assessment(), but yields a progress update after each node completes.
+
+    Yields {"node": <node_name>, "chunk": <cumulative state so far>} as each node
+    finishes, then a final {"node": "done", "final_state": <the complete AgentState>}.
+    Node names can repeat (factor_analysis/overall_assessment/validate re-run on
+    each revision loop), so callers should key off "node" plus the chunk's
+    revision_count rather than assuming each name appears once.
+    """
+    app = build_graph()
+    final_state = None
+    for chunk in app.stream({"student_name": student_name, "project_id": project_id}):
+        node_name = list(chunk.keys())[0]
+        node_state = chunk[node_name]
+        final_state = node_state
+        yield {"node": node_name, "chunk": node_state}
+    yield {"node": "done", "final_state": final_state}
+
+
 if __name__ == "__main__":
     import sys
 

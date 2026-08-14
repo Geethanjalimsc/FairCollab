@@ -1,0 +1,545 @@
+[
+  {
+    "project_id": "fraud_scenario_clean",
+    "project_name": "Experiment 4 -- Scenario 1: Clean Control Group",
+    "project_type": "software",
+    "duration_weeks": 4,
+    "ground_truth": {
+      "fraud_pattern": "none (control group)",
+      "designed_to_trigger": [],
+      "design_rationale": "Genuine, varied contributions with real corroboration and no duplicated text, clustering, or isolation pattern. Uses 3 students (Student P1/P2/P3), not 2, despite the brief's default of 2 -- with only 2 people and no one else in the scenario, any mutual peer_support/peer_feedback mention between them is structurally indistinguishable from Stage 4's mutual-isolation fraud pattern (there is no one available to serve as an 'external' corroborator), and a one-directional-only mention would instead trip Stage 4b's zero-corroborators check on whichever student receives no credit. A 3-person one-way chain of favors (P1 helps P2, P2 helps P3, P3 helps P1) sidesteps both: every student has exactly one real, well-corroborated in-edge, and no pair mentions each other bidirectionally, so neither Stage 4 nor 4b can fire while the corroboration is still completely genuine. Expected result: zero flags from every check."
+    },
+    "students": [
+      {
+        "student_id": "P1",
+        "student_name": "Student P1",
+        "tasks_assigned": 6,
+        "tasks_completed": 5,
+        "meetings_attended": 4,
+        "meetings_total": 4,
+        "peer_feedback": [
+          "Consistently produced high-quality code and communicated clearly with the team",
+          "Always available to help when someone was stuck"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-01",
+            "type": "code",
+            "description": "Implemented the payment gateway integration with Stripe API",
+            "complexity": "high",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "meeting",
+            "description": "Attended kickoff meeting, proposed initial architecture",
+            "role": "presenter"
+          },
+          {
+            "date": "2026-05-05",
+            "type": "task",
+            "description": "Completed: Write integration tests for payment flow",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-05-10",
+            "type": "peer_support",
+            "description": "Helped Student P2 debug a failing unit test in the payment module",
+            "recipient": "Student P2"
+          },
+          {
+            "date": "2026-05-16",
+            "type": "code",
+            "description": "Merged the payment error handling refactor after teammate's review",
+            "complexity": "medium",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "student_id": "P2",
+        "student_name": "Student P2",
+        "tasks_assigned": 6,
+        "tasks_completed": 5,
+        "meetings_attended": 4,
+        "meetings_total": 4,
+        "peer_feedback": [
+          "Reliable and thorough, caught several bugs before release",
+          "Great at explaining technical decisions to the team"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-03",
+            "type": "code",
+            "description": "Built the shopping cart UI component",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "meeting",
+            "description": "Attended kickoff meeting, took notes on architecture decisions",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-10",
+            "type": "code",
+            "description": "Fixed a failing unit test in the payment module after getting help from a teammate",
+            "complexity": "low",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "peer_support",
+            "description": "Helped Student P3 set up the local development environment",
+            "recipient": "Student P3"
+          },
+          {
+            "date": "2026-05-13",
+            "type": "task",
+            "description": "Completed: Write documentation for the cart API",
+            "status": "completed",
+            "complexity": "low"
+          }
+        ]
+      },
+      {
+        "student_id": "P3",
+        "student_name": "Student P3",
+        "tasks_assigned": 6,
+        "tasks_completed": 4,
+        "meetings_attended": 3,
+        "meetings_total": 4,
+        "peer_feedback": [
+          "Solid contributor, ramped up quickly once environment issues were sorted",
+          "Dependable for the tasks assigned"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-02",
+            "type": "meeting",
+            "description": "Attended kickoff meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "code",
+            "description": "Set up local development environment following teammate's guidance and got the app running",
+            "complexity": "low",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-13",
+            "type": "task",
+            "description": "Completed: Add input validation to the checkout form",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-05-16",
+            "type": "peer_support",
+            "description": "Helped Student P1 review and merge the payment error handling refactor",
+            "recipient": "Student P1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_id": "fraud_scenario_peer_inflation",
+    "project_name": "Experiment 4 -- Scenario 2: Peer Feedback Inflation",
+    "project_type": "software",
+    "duration_weeks": 3,
+    "ground_truth": {
+      "fraud_pattern": "peer inflation -- suspiciously uniform, glowing peer_feedback with thin real contribution evidence behind it",
+      "designed_to_trigger": ["Stage 1c (assess_corroboration_confidence)"],
+      "known_scope_gap_relevant_here": "peer_feedback record_type is out of scope for Stage 2 (find_cross_student_similar_contributions only scans record_type='contribution' by design, per its own docstring). Student Q1 and Q3's peer_feedback entries are deliberately near-identical superlative wording ('exceptional', 'outstanding') -- a real inflation signal -- but this will NOT be caught by any current check by name, since nothing scans cross-student peer_feedback similarity. This is not a bug being discovered here; it is the pre-documented Stage 2 scope boundary, empirically exercised.",
+      "design_rationale": "Student Q1 gets uniformly glowing, near-identical peer_feedback (a soft inflation signal, not algorithmically checked) while their actual contributions are thin and generic (README updates, formatting fixes) and their one peer_support claim ('personally resolved every major blocker Q2 faced') is vague/grandiose and does not semantically match anything in Q2's real, substantive, unrelated contribution record -- this is what should trip Stage 1c. Student Q3 shares Q1's glowing-feedback pattern as a second instance (reinforcing that this isn't a one-off). Student Q2 is the contrast case: modest, specific peer_feedback and substantive real contributions, included so the scenario isn't uniformly suspicious."
+    },
+    "students": [
+      {
+        "student_id": "Q1",
+        "student_name": "Student Q1",
+        "tasks_assigned": 5,
+        "tasks_completed": 4,
+        "meetings_attended": 3,
+        "meetings_total": 3,
+        "peer_feedback": [
+          "An absolutely exceptional contributor, truly outstanding work ethic",
+          "Simply the best teammate imaginable, exceptional in every way",
+          "Outstanding work ethic and truly exceptional contributions throughout"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-03",
+            "type": "task",
+            "description": "Completed: Update project README",
+            "status": "completed",
+            "complexity": "trivial"
+          },
+          {
+            "date": "2026-05-05",
+            "type": "meeting",
+            "description": "Attended team meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "task",
+            "description": "Completed: Minor formatting fixes",
+            "status": "completed",
+            "complexity": "trivial"
+          },
+          {
+            "date": "2026-05-10",
+            "type": "peer_support",
+            "description": "Led the team through the most difficult technical challenges and personally resolved every major blocker Q2 faced",
+            "recipient": "Student Q2"
+          }
+        ]
+      },
+      {
+        "student_id": "Q2",
+        "student_name": "Student Q2",
+        "tasks_assigned": 6,
+        "tasks_completed": 5,
+        "meetings_attended": 3,
+        "meetings_total": 3,
+        "peer_feedback": [
+          "Did solid, careful work on the backend",
+          "Communicated clearly when issues came up"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-02",
+            "type": "code",
+            "description": "Implemented the database migration scripts",
+            "complexity": "high",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-05",
+            "type": "meeting",
+            "description": "Attended team meeting, presented migration progress",
+            "role": "presenter"
+          },
+          {
+            "date": "2026-05-06",
+            "type": "code",
+            "description": "Fixed a race condition in the queue processor",
+            "complexity": "high",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-09",
+            "type": "task",
+            "description": "Completed: Write migration rollback documentation",
+            "status": "completed",
+            "complexity": "medium"
+          }
+        ]
+      },
+      {
+        "student_id": "Q3",
+        "student_name": "Student Q3",
+        "tasks_assigned": 5,
+        "tasks_completed": 4,
+        "meetings_attended": 3,
+        "meetings_total": 3,
+        "peer_feedback": [
+          "An absolutely exceptional contributor, truly remarkable talent",
+          "Outstanding in every conceivable way, exceptional work"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-04",
+            "type": "documentation",
+            "description": "Wrote the API reference documentation",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-05",
+            "type": "meeting",
+            "description": "Attended team meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-11",
+            "type": "task",
+            "description": "Completed: Set up CI pipeline for automated tests",
+            "status": "completed",
+            "complexity": "medium"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_id": "fraud_scenario_temporal_anomaly",
+    "project_name": "Experiment 4 -- Scenario 3: Temporal Clustering",
+    "project_type": "software",
+    "duration_weeks": 6,
+    "ground_truth": {
+      "fraud_pattern": "temporal anomaly -- one student's real work is suspiciously clustered in the final 2 days of an otherwise 6-week (42-day) project, despite attending meetings normally throughout",
+      "designed_to_trigger": [],
+      "known_gap_being_tested": "None of Stages 1/1b/1c/2/4/4b analyze a single student's OWN contribution date distribution for clustering. Stage 1b's check_temporal_plausibility() only checks whether a peer_support CLAIM's date is near the RECIPIENT's own nearby activity (corroboration timing for one claim) -- it never looks at whether a student's overall body of work is suspiciously bunched up. This scenario exists specifically to empirically confirm whether this gap is real, not to assume it.",
+      "design_rationale": "Student R1 attends meetings on a normal cadence across all 6 weeks (days 3, 15, 30, 38) but logs zero non-meeting contributions until the final 2 days (2026-06-10 and 2026-06-11), where 6 code/task contributions suddenly appear -- a classic last-minute-work pattern. R1's one peer_support claim is deliberately made to genuinely check out (Student R2 has a real, matching contribution corroborating it), so Stage 1c should NOT flag it -- isolating the temporal-clustering signal as the only anomaly in this scenario, uncontaminated by a corroboration failure that would otherwise also explain a flag. Student R2 is a normal baseline with contributions spread evenly across the whole 6 weeks, for contrast."
+    },
+    "students": [
+      {
+        "student_id": "R1",
+        "student_name": "Student R1",
+        "tasks_assigned": 8,
+        "tasks_completed": 8,
+        "meetings_attended": 4,
+        "meetings_total": 4,
+        "peer_feedback": [
+          "Delivered a lot of work by the end, though most of it came together very late",
+          "Attended all the key meetings throughout"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-03",
+            "type": "meeting",
+            "description": "Attended kickoff meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-15",
+            "type": "meeting",
+            "description": "Attended midpoint check-in",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-30",
+            "type": "meeting",
+            "description": "Attended sprint review",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-06-07",
+            "type": "meeting",
+            "description": "Attended final planning meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-06-10",
+            "type": "code",
+            "description": "Implemented user profile page",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-06-10",
+            "type": "code",
+            "description": "Implemented settings page",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-06-10",
+            "type": "task",
+            "description": "Completed: Write unit tests for profile module",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-06-10",
+            "type": "peer_support",
+            "description": "Helped Student R2 resolve a deployment configuration issue",
+            "recipient": "Student R2"
+          },
+          {
+            "date": "2026-06-11",
+            "type": "code",
+            "description": "Implemented notifications feature",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-06-11",
+            "type": "code",
+            "description": "Fixed styling issues across all pages",
+            "complexity": "low",
+            "status": "completed"
+          },
+          {
+            "date": "2026-06-11",
+            "type": "task",
+            "description": "Completed: Final integration testing",
+            "status": "completed",
+            "complexity": "medium"
+          }
+        ]
+      },
+      {
+        "student_id": "R2",
+        "student_name": "Student R2",
+        "tasks_assigned": 8,
+        "tasks_completed": 7,
+        "meetings_attended": 4,
+        "meetings_total": 4,
+        "peer_feedback": [
+          "Consistent contributor throughout the whole project",
+          "Always kept the team updated on progress"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-03",
+            "type": "meeting",
+            "description": "Attended kickoff meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-07",
+            "type": "code",
+            "description": "Set up the project scaffolding and build pipeline",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-15",
+            "type": "meeting",
+            "description": "Attended midpoint check-in",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-18",
+            "type": "code",
+            "description": "Implemented the authentication flow",
+            "complexity": "high",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-22",
+            "type": "task",
+            "description": "Completed: Write API documentation",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-05-30",
+            "type": "meeting",
+            "description": "Attended sprint review",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-06-04",
+            "type": "code",
+            "description": "Refactored the database access layer",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-06-07",
+            "type": "meeting",
+            "description": "Attended final planning meeting",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-06-10",
+            "type": "code",
+            "description": "Fixed a deployment configuration issue after getting help from a teammate",
+            "complexity": "medium",
+            "status": "completed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project_id": "fraud_scenario_coordinated",
+    "project_name": "Experiment 4 -- Scenario 4: Fully Coordinated Fraud",
+    "project_type": "software",
+    "duration_weeks": 3,
+    "ground_truth": {
+      "fraud_pattern": "coordinated fraud combining near-duplicate contribution text AND mutual-only corroboration between two students",
+      "designed_to_trigger": ["Stage 2 (find_cross_student_similar_contributions)", "Stage 4 (find_mutual_isolation_pairs)"],
+      "design_rationale": "Student S1 and S2 (only 2 students in this scenario, deliberately, since mutual isolation is the intended positive result here rather than something to avoid) share two pairs of near-identical non-meeting descriptions: a 'login form validation' code entry worded almost verbatim by both, and an identical 'Set up the shared component library' task text -- targeting Stage 2. Their peer_feedback entries both explicitly name the other student ('Formed a strong duo with Student SX...'), reinforcing peer_support's mutual recipient claims, so both source types in build_mention_graph() point the same way: S1<->S2 mutually, with zero mentions from anyone else in this small group -- targeting Stage 4. The peer_support claims themselves are also left uncorroborated by real matching evidence, which may additionally trip Stage 1c; that is expected and consistent with the 'everything at once' design, not a confound to control for."
+    },
+    "students": [
+      {
+        "student_id": "S1",
+        "student_name": "Student S1",
+        "tasks_assigned": 6,
+        "tasks_completed": 5,
+        "meetings_attended": 2,
+        "meetings_total": 2,
+        "peer_feedback": [
+          "Formed a strong duo with Student S2 and they worked really well together",
+          "Always coordinated closely with Student S2 on every task"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-05",
+            "type": "code",
+            "description": "Implemented the login form validation logic using regex patterns for email and password strength",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-06",
+            "type": "meeting",
+            "description": "Attended team sync",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-10",
+            "type": "task",
+            "description": "Completed: Set up the shared component library",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "peer_support",
+            "description": "Helped Student S2 with the API integration",
+            "recipient": "Student S2"
+          }
+        ]
+      },
+      {
+        "student_id": "S2",
+        "student_name": "Student S2",
+        "tasks_assigned": 6,
+        "tasks_completed": 5,
+        "meetings_attended": 2,
+        "meetings_total": 2,
+        "peer_feedback": [
+          "Formed a strong duo with Student S1 and they worked really well together",
+          "Always coordinated closely with Student S1 on every task"
+        ],
+        "contributions": [
+          {
+            "date": "2026-05-06",
+            "type": "code",
+            "description": "Implemented login form validation logic using regex patterns for checking email format and password strength",
+            "complexity": "medium",
+            "status": "completed"
+          },
+          {
+            "date": "2026-05-06",
+            "type": "meeting",
+            "description": "Attended team sync",
+            "role": "attendee"
+          },
+          {
+            "date": "2026-05-11",
+            "type": "task",
+            "description": "Completed: Set up the shared component library",
+            "status": "completed",
+            "complexity": "medium"
+          },
+          {
+            "date": "2026-05-13",
+            "type": "peer_support",
+            "description": "Helped Student S1 with the API integration",
+            "recipient": "Student S1"
+          }
+        ]
+      }
+    ]
+  }
+]

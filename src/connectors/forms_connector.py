@@ -157,7 +157,7 @@ def _parse_peer_review_records(records: list) -> dict:
         for letter in PEER_FORM_STUDENT_LETTERS:
             reviewed_student = f"Student {letter}"
             if reviewer == reviewed_student:
-                continue  # skip self-review
+                continue
             rating = _parse_rating(row.get(_rating_column(letter)))
             comment = str(row.get(_comment_column(letter), "")).strip()
             if rating is None and not comment:

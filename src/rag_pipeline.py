@@ -124,7 +124,7 @@ def build_documents() -> list:
 
 
 def _get_embeddings() -> GoogleGenerativeAIEmbeddings:
-    """Construct the Gemini embeddings client, failing fast if the key is missing."""
+    """Construct the Gemini embeddings client."""
     api_key = os.environ.get("GOOGLE_API_KEY")
     if not api_key:
         raise RuntimeError(
@@ -151,8 +151,25 @@ def _load_index() -> FAISS:
     return FAISS.load_local(INDEX_DIR, embeddings, allow_dangerous_deserialization=True)
 
 
+def _filter_documents(vector_store: FAISS, filter_dict: dict) -> list:
+    """Return every Document in vector_store whose metadata exactly matches every key in
+    filter_dict. 
+    Uses only FAISS's publicly-named constructor attributes (docstore, index_to_docstore_id),
+    not InMemoryDocstore's private _dict, so this doesn't depend on the docstore's specific
+    internal storage shape -- docstore.search(id) is InMemoryDocstore's one public lookup
+    method, and index_to_docstore_id is a plain (non-underscore) constructor parameter.
+    """
+    matches = []
+    for doc_id in vector_store.index_to_docstore_id.values():
+        doc = vector_store.docstore.search(doc_id)
+        if all(doc.metadata.get(key) == value for key, value in filter_dict.items()):
+            matches.append(doc)
+    return matches
+
+
 def retrieve_evidence(student_name: str, k: int = 8, project_id: str = None) -> list:
-    """Return top-k contribution records for one student plus a smaller top slice of peer feedback."""
+    """Return top-k contribution records for one student, plus EVERY peer_feedback record
+    for that student."""
     vector_store = _load_index()
 
     # Student names repeat across projects, so scope by project_id too when given.
@@ -160,15 +177,12 @@ def retrieve_evidence(student_name: str, k: int = 8, project_id: str = None) -> 
     if project_id is not None:
         base_filter["project_id"] = project_id
 
-    # Searched separately so contribution volume can't crowd out peer feedback.
+    # Searched separately so contribution volume can't crowd out peer feedback. 
     contribution_results = vector_store.similarity_search(
         student_name, k=k, filter={**base_filter, "record_type": "contribution"}, fetch_k=200
     )
-
-    # Peer feedback is supporting evidence, so its cap is lower than k.
-    peer_feedback_k = max(1, round(k * 0.4))
-    peer_feedback_results = vector_store.similarity_search(
-        student_name, k=peer_feedback_k, filter={**base_filter, "record_type": "peer_feedback"}, fetch_k=200
+    peer_feedback_results = _filter_documents(
+        vector_store, {**base_filter, "record_type": "peer_feedback"}
     )
 
     results = contribution_results + peer_feedback_results
@@ -203,11 +217,7 @@ def check_semantic_corroboration(
     relevance score across all of Student B's own documents, while realistic paraphrases
     of a real corroborating event that drop the helper's name but keep the topic (e.g.
     "a groupmate helped resolve a merge conflict I was stuck on...") score ~0.65-0.67.
-    Known limitation: paraphrases sharing almost no vocabulary with the claim at all (full
-    synonym replacement) scored *lower* in testing than genuinely unrelated text -- this
-    embedding model leans on some lexical/topical overlap as signal at this text length, so
-    this check reliably catches name-free paraphrases that still share a topic anchor, but
-    not fully alienated rewordings. Worth revisiting in a later stage.
+   
 
     Returns: {
         "corroborated": bool,
@@ -220,10 +230,6 @@ def check_semantic_corroboration(
     search_filter = {"student_name": recipient_name}
     if project_id is not None:
         search_filter["project_id"] = project_id
-
-    # fetch_k=200 (matching retrieve_evidence()'s convention) so the filter is applied
-    # over the whole index, not just FAISS's small default candidate pool -- without it,
-    # a narrow filter can silently miss most of the recipient's own documents.
     results = vector_store.similarity_search_with_relevance_scores(
         claim_text, k=20, filter=search_filter, fetch_k=200
     )
@@ -232,7 +238,7 @@ def check_semantic_corroboration(
         return {"corroborated": False, "best_match_score": None, "best_match_text": None}
 
     best_doc, best_score = max(results, key=lambda pair: pair[1])
-    best_score = float(best_score)  # FAISS returns numpy scalars; keep the return dict plain Python
+    best_score = float(best_score)  
     return {
         "corroborated": best_score >= similarity_threshold,
         "best_match_score": best_score,
@@ -249,59 +255,6 @@ def find_cross_student_similar_contributions(
     belonging to DIFFERENT students whose descriptions are near-duplicates -- a signal for
     possible coordinated or copied work, distinct from the within-student duplicate check
     already in node_integrity_analysis(). Scope: "contribution" documents only.
-
-    peer_feedback was deliberately tried and rejected as a scope extension, not just left
-    unexplored: real-data testing (fraud_scenarios.json's Scenario 2 vs the three genuine
-    clean projects) found complete score overlap between innocent and coordinated cases --
-    the single highest genuine cross-student peer_feedback pair scored 0.8140, HIGHER than
-    the lowest pair in the deliberately-constructed suspicious set (0.8107). No threshold
-    separates them, at 0.65, 0.85, or anywhere else. Root cause: contribution text describes
-    specific, itemizable technical work (a large, specific vocabulary space where coincidental
-    overlap is rare), while peer_feedback text characterizes a *performance level* from a
-    small, common vocabulary ("reliable", "unresponsive", "took initiative") -- so two
-    genuinely different students who happen to both be strong (or both weak) contributors
-    naturally produce similar-sounding feedback with zero coordination involved. Don't
-    re-attempt this as a simple filter-scope extension without a fundamentally different
-    mechanism (e.g. shared-rare-vocabulary matching showed more promise in early testing but
-    was never calibrated to a shippable standard).
-
-    For each contribution, this queries the FAISS index with that contribution's own
-    page_content, filtered to {"project_id": project_id, "record_type": "contribution"} with
-    fetch_k=200 (matching the fetch_k convention used elsewhere in this file). The dict filter
-    here only supports equality (plus this LangChain version's $eq/$neq/$in/$and/$or/$not
-    operators -- verified by reading FAISS._create_filter_func's source), but this function
-    still excludes same-student matches in Python after retrieval rather than via a $neq
-    filter clause, to stay consistent with the plain-equality-filter style used by every other
-    filter in this file (retrieve_evidence, check_semantic_corroboration).
-
-    TYPE-AWARE THRESHOLD, empirically calibrated (not guessed) against the real software and
-    research projects' contribution data:
-    - Innocent NON-meeting pairs (different students, genuinely different work, same project
-      vocabulary) scored up to 0.8244 in testing -- e.g. one student writing API documentation
-      and another creating the doc template for the same feature naturally score high on
-      topic alone, with no copying involved.
-    - Innocent MEETING pairs scored even higher: up to 0.8315 -- HIGHER than the non-meeting
-      ceiling in the same dataset. Students independently describing attendance at the same
-      real meeting ("Attended sprint planning meeting" / "Organised sprint planning meeting")
-      routinely land in the 0.75-0.83 band. There is no innocent-vs-suspicious separation to
-      threshold against for meeting-type pairs -- the innocent ceiling for meetings sits at or
-      above the innocent ceiling for everything else, so no single bar can safely admit
-      genuine meeting overlap while excluding a fabricated meeting-type duplicate, because a
-      fabricated one wouldn't even need to be that close to still look "normal." Per this
-      finding, meeting-type pairs are excluded from flagging entirely by default
-      (meeting_threshold=None) rather than assigned a "much higher" numeric bar that testing
-      does not support. meeting_threshold is kept as a parameter (not hardcoded away) so a
-      future stage can revisit this with a different method; passing an explicit value here
-      re-enables meeting-pair flagging at that bar.
-    - A deliberately near-duplicate contribution (copied description, reworded by one word)
-      scored 0.8730 against its source; an exact-text duplicate's self-match scored 0.8817 --
-      this dataset/embedding model's practical ceiling is well under 1.0 even for identical
-      text. non_meeting_threshold=0.85 sits in the real gap this produced: above every
-      observed innocent non-meeting score (max 0.8244), below both observed true-duplicate
-      scores (0.8730, 0.8817). The margin is real but narrow (~0.02-0.03 either side), so this
-      should be read as "flagged for review," never as confirmed copying.
-
-    Deduplicates symmetric pairs (A-vs-B and B-vs-A are the same finding, reported once).
 
     Returns a list of dicts:
     {
@@ -370,44 +323,3 @@ def find_cross_student_similar_contributions(
 
     return findings
 
-
-def find_best_matching_contribution(task_description: str, student_name: str, project_id: str = None) -> dict:
-    """Find the single best-matching contribution (record_type "contribution" only, not
-    peer_feedback) belonging to student_name for a claimed task_description -- reuses
-    check_semantic_corroboration()'s exact scoring approach and confirmed score direction
-    (similarity_search_with_relevance_scores(): [0, 1], higher means more similar), not
-    re-derived here.
-
-    A task may legitimately match several real commits (e.g. "Implement SLAM" spread across
-    5 commits); this only needs the SINGLE best match, since the question is "is there any
-    real evidence at all for this claim", not full credit allocation across matches.
-
-    Returns: {
-        "best_score": float,
-        "best_match_text": str or None,
-    }
-    """
-    vector_store = _load_index()
-
-    search_filter = {"student_name": student_name, "record_type": "contribution"}
-    if project_id is not None:
-        search_filter["project_id"] = project_id
-
-    # fetch_k=200, same convention as check_semantic_corroboration() and retrieve_evidence().
-    results = vector_store.similarity_search_with_relevance_scores(
-        task_description, k=20, filter=search_filter, fetch_k=200
-    )
-
-    if not results:
-        return {"best_score": 0.0, "best_match_text": None}
-
-    best_doc, best_score = max(results, key=lambda pair: pair[1])
-    return {"best_score": float(best_score), "best_match_text": best_doc.page_content}
-
-
-if __name__ == "__main__":
-    print(f"Loading data from {STUDENTS_PATH} and {RESEARCH_STUDENTS_PATH}...")
-    docs = build_documents()
-    print(f"Built {len(docs)} documents. Embedding and building FAISS index...")
-    build_and_save_index()
-    print(f"Index saved to {INDEX_DIR}")

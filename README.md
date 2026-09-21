@@ -91,5 +91,6 @@ The sidebar's **Project Type** selector switches between two kinds of data: **So
 ## Author / Academic Context
 
 **Geethanjali Muddahanumaiah**
-MSc Artificial Intelligence and Machine Learning, University of Birmingham
+MSc Artificial Intelligence and Machine Learning
+University of Birmingham
 Supervisor: Dr Jian Liu

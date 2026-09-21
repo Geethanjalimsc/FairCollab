@@ -148,14 +148,6 @@ def check_temporal_plausibility(claim_date: str, recipient_record: dict, window_
     recipient wasn't completely silent near that date; total silence near the claimed date
     is itself informative, regardless of what text similarity says.
 
-    peer_feedback entries have no date field at all in this schema (confirmed against the
-    real project JSON: each entry is a plain string, not a dated record), so only
-    recipient_record's "contributions" list can be checked here -- peer_feedback is
-    excluded because there is nothing to compare it against, not as an oversight.
-
-    Dates are "YYYY-MM-DD" strings throughout the codebase (confirmed against real JSON),
-    parsed with date.fromisoformat().
-
     Also returns the nearest contribution's own description/complexity (not just that it
     exists), so callers like assess_corroboration_confidence() can judge whether that nearby
     activity is meaningful competing evidence or just incidental noise.

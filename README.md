@@ -72,7 +72,6 @@ Developed and run against **Python 3.11.9**.
 | GitHub Personal Access Token | Entered directly in the Streamlit sidebar (Live Data → GitHub tab); never written to disk | GitHub connector only |
 | Google service account JSON | A file on disk (default path `google_service_account.json`, configurable in the sidebar) | Google Forms/Sheets connector only |
 
-No `.env.example` currently exists in this repository; `GOOGLE_API_KEY` (confirmed against `src/agent.py` and `src/rag_pipeline.py`, both of which read it via `os.environ.get("GOOGLE_API_KEY")`) is the only environment variable actually read by the code.
 
 ## Running the App
 
